@@ -2,13 +2,19 @@
 <html>
 <head>
   <title>Ezdz</title>
-  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag    'application', 'data-turbolinks-track' => true -%>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
+
+  <%= stylesheet_link_tag    "#{params[:controller]}" -%>
+  <%= javascript_include_tag "#{params[:controller]}" -%>
+
+  <%= yield :application_head -%>
+
 </head>
 <body>
 
-<%= yield %>
+<%= yield :application_body -%>
 
 </body>
 </html>

@@ -29,11 +29,13 @@ group :development, :test do
   gem 'spring'
   # Annotate models on migrate
   gem 'annotate', '~> 2.6.6'
+  # Specs
+  gem 'rspec'
 end
 
 group :production do
   # Dunno
-  gem 'capistrano', "~> 2.12.0"g
+  gem 'capistrano', "~> 2.12.0"
   # Production server
   gem "unicorn", "~> 4.1.0"
 end
