@@ -1,14 +1,52 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
- *
+/* Application.css require tree
+ *= require normalize
  *= require_self
+
  */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+#back {
+  width: 100%;
+  height: 100%;
+  perspective: 1500px;
+  background: #2c7890;
+  background: -moz-linear-gradient(top,  #2c7890 0%, #2d3246 100%);
+  background: -webkit-gradient(
+      linear, left top, left bottom,
+      color-stop(0%,#2c7890),
+      color-stop(100%,#2d3246) );
+  background: -webkit-linear-gradient(top,  #2c7890 0%,#2d3246 100%);
+  background: -o-linear-gradient(top,  #2c7890 0%,#2d3246 100%);
+  background: -ms-linear-gradient(top,  #2c7890 0%,#2d3246 100%);
+  background: linear-gradient(to bottom,  #2c7890 0%,#2d3246 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient(
+      startColorstr='#2c7890',
+      endColorstr='#2d3246',
+      GradientType=0 );
+}
+
+#back #sidebar {
+  position: absolute;
+  margin: 0;
+  color: white;
+  opacity: 0;
+}
+
+#back #main {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  background: white;
+  transform-style: preserve-3d;
+  background: url('http://ezdz.io/img/mac.jpg');
+  background-size: 100% 100%;
+  transform-origin: right center;
+}

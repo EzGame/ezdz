@@ -3,18 +3,34 @@
 <head>
   <title>Ezdz</title>
   <%= csrf_meta_tags %>
-  <%= stylesheet_link_tag    'application', 'data-turbolinks-track' => true -%>
-  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
 
+  <!-- CSS -->
   <%= stylesheet_link_tag    "#{params[:controller]}" -%>
+  <%= stylesheet_link_tag    'application', 'data-turbolinks-track' => true -%>
+
+  <!-- JS -->
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
+  <%= javascript_include_tag "velocity" -%>
   <%= javascript_include_tag "#{params[:controller]}" -%>
 
   <%= yield :application_head -%>
 
 </head>
 <body>
-
-<%= yield :application_body -%>
-
+<div id="back">
+  <div id="sidebar">
+    <ul>
+      <li>One</li>
+      <li>One</li>
+      <li>One</li>
+      <li>One</li>
+      <li>One</li>
+    </ul>
+  </div>
+  <div id="main">
+    <%= yield :application_body -%>
+    <!--<div id="test"></div>-->
+  </div>
+</div>
 </body>
 </html>

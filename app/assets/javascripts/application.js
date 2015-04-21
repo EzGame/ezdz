@@ -1,15 +1,40 @@
-// This is a manifest file that'll be compiled into application.js, which will include all the files
-// listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, vendor/assets/javascripts,
-// or any plugin's vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file.
-//
-// Read Sprockets README (https://github.com/sstephenson/sprockets#sprockets-directives) for details
-// about supported directives.
-//
+// Application.js require tree
 //= require jquery
-//= require jquery_ujs
+//= require velocity
 //= require turbolinks
+
+
+$(document).on('ready', function() {
+  // Free names
+  $body = $('body');
+
+  // Scope vars
+  var $main = $('#main');
+  var $sidebar = $('#sidebar');
+
+  $main.on('click', function() {
+    var height = $body.height();
+    var width = $body.width();
+
+    if ($main.hasClass('transformed')) {
+      $main.removeClass('transformed');
+      $main.velocity('reverse');
+      $sidebar.velocity('reverse');
+
+    } else {
+      $main.addClass('transformed');
+      $main.velocity({
+        p: { rotateY: '-45deg' },
+        o: { duration: 750,
+             easing: "swing" }
+      });
+      $sidebar.velocity(
+          'fadeIn',
+          { delay: 1000, duration: 1000 }
+      )
+    }
+  });
+});
+
+
+
