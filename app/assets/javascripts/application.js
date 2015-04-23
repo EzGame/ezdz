@@ -9,31 +9,31 @@ $(document).on('ready', function() {
   $body = $('body');
 
   // Scope vars
-  var $main = $('#main');
-  var $sidebar = $('#sidebar');
+  var $main = $('#app-main');
 
   $main.on('click', function() {
-    var height = $body.height();
-    var width = $body.width();
-
     if ($main.hasClass('transformed')) {
       $main.removeClass('transformed');
       $main.velocity('reverse');
-      $sidebar.velocity('reverse');
-
     } else {
       $main.addClass('transformed');
       $main.velocity({
-        p: { rotateY: '-45deg' },
-        o: { duration: 750,
-             easing: "swing" }
+        p: { rotateY: '-45deg' }
       });
-      $sidebar.velocity(
-          'fadeIn',
-          { delay: 1000, duration: 1000 }
-      )
     }
   });
+
+  // Run intro
+  $('#app-intro img').velocity(
+      'fadeOut',
+      { duration: 500,
+        delay: 750 }
+  );
+  $('#app-intro').velocity(
+      'fadeOut',
+      { duration: 1500,
+        delay: 750 }
+  );
 });
 
 
