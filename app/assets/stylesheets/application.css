@@ -71,10 +71,20 @@ html, body {
   float: right;
 }
 #app-bg #app-sidebar #app-sidebar-container #app-menu li {
+  color: white;
   font-size: 32px;
-  font-weight: 300;
+  font-weight: 100;
+  font-family: 'Lato';
   list-style: none;
   margin-right: 200px;
+  margin-top: 25px;
+  transition: 0.5s;
+}
+#app-bg #app-sidebar #app-sidebar-container #app-menu li.selected {
+  color: gold;
+}
+#app-bg #app-sidebar #app-sidebar-container #app-menu li:hover {
+  padding-left: 50px;
 }
 #app-bg #app-body {
   position: relative;
