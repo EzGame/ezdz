@@ -2,7 +2,7 @@
 //= require jquery
 //= require velocity
 //= require turbolinks
-
+//= require utility
 
 $(document).on('ready', function() {
   // Free names
@@ -27,14 +27,18 @@ $(document).on('ready', function() {
   $('#app-intro img').velocity(
       'fadeOut',
       { duration: 500,
-        delay: 750 }
+        delay: 1500 }
   );
   $('#app-intro').velocity(
       'fadeOut',
       { duration: 1500,
-        delay: 750 }
+        delay: 1500 }
   );
+
+  $('#fullscreen').on('click', function() {
+    fullScreen(document.querySelector('#app-bg'));
+  });
+  /* TODO: AJAX Loader show/hide function with callback */
+  /* TODO: Hide menu then run AJAX to fetch page */
+  /* TODO: AJAX page switch (seems hard) */
 });
-
-
-
