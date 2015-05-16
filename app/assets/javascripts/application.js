@@ -1,23 +1,19 @@
 // Application.js require tree
 //= require jquery
-//= require velocity
 //= require turbolinks
 //= require utility
 
 $(document).on('ready', function() {
-  // Free names
-  $body = $('body');
-
   // Scope vars
-  var $main = $('#app-main');
+  var $container = $('#app-container');
 
-  $main.on('click', function() {
-    if ($main.hasClass('transformed')) {
-      $main.removeClass('transformed');
-      $main.velocity('reverse');
+  $container.on('click', function() {
+    if ($container.hasClass('transformed')) {
+      $container.removeClass('transformed');
+      $container.velocity('reverse');
     } else {
-      $main.addClass('transformed');
-      $main.velocity({
+      $container.addClass('transformed');
+      $container.velocity({
         p: { rotateY: '-45deg' }
       });
     }
@@ -36,7 +32,7 @@ $(document).on('ready', function() {
   );
 
   $('#fullscreen').on('click', function() {
-    fullScreen(document.querySelector('#app-bg'));
+    fullScreen(document.querySelector('body'));
   });
   /* TODO: AJAX Loader show/hide function with callback */
   /* TODO: Hide menu then run AJAX to fetch page */

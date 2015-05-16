@@ -7,55 +7,56 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   <%= csrf_meta_tags -%>
   <%= render 'templates/meta' -%>
-
   <!-- CSS -->
   <%= stylesheet_link_tag    "#{params[:controller]}" -%>
   <%= stylesheet_link_tag    "font-awesome" -%>
   <%= stylesheet_link_tag    'application', 'data-turbolinks-track' => true -%>
-
   <!-- JS -->
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true -%>
   <%= javascript_include_tag "velocity" -%>
   <%= javascript_include_tag "#{params[:controller]}" -%>
-
   <%= yield :application_head -%>
-
 </head>
 <body>
-<% unless params[:no_intro] -%>
-<div id="app-intro">
-  <%= image_tag 'loading' -%>
-</div>
-<% end -%>
-<!-- TODO: Animated bg -->
-<div id="app-bg">
+  <% unless params[:no_intro] -%>
+    <div id="app-intro">
+      <%= image_tag 'loading' -%>
+      <!-- TODO: Intro message -->
+    </div>
+  <% end -%>
+  <!-- Background -->
+  <div id="app-bg">
+  </div>
+  <!-- App -->
   <div id="app-main">
-    <div id="app-sidebar">
-      <div id="app-sidebar-container">
-        <ul id="app-menu">
-          <li class="selected">Home</li>
-          <li>Studio</li>
-          <li>Gallery</li>
-          <li>Scribbles</li>
-          <li>Contact</li>
-          <li><i class="fa fa-facebook-square"></i>
-            <i class="fa fa-twitter-square"></i>
-            <i class="fa fa-git-square"></i>
-            <i class="fa fa-linkedin-square"></i>
-          </li>
-        </ul>
+    <div id="app-container">
+      <div id="app-sidebar">
+        <div id="app-sidebar-container">
+          <ul id="app-menu">
+            <li class="selected">Home</li>
+            <li>Studio</li>
+            <li>Gallery</li>
+            <li>Scribbles</li>
+            <li>Contact</li>
+            <li><i class="fa fa-facebook-square"></i>
+              <i class="fa fa-twitter-square"></i>
+              <i class="fa fa-git-square"></i>
+              <i class="fa fa-linkedin-square"></i>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id="app-body">
+        <svg id="fullscreen" width="32" height="32">
+          <g><path d="M20,8l8,8V8H20z M4,24h8l-8-8V24z"/>
+            <path d="M32,28V4H0v24h14v2H8v2h16v-2h-6v-2H32z M2,26V6h28v20H2z"/>
+          </g>
+        </svg>
+        <!-- TODO: Use ajax to populate body -->
+        <%= yield :application_body -%>
+        <!--<div id="test"></div>-->
       </div>
     </div>
-    <div id="app-body">
-      <svg id="fullscreen" width="32" height="32">
-        <g><path d="M20,8l8,8V8H20z M4,24h8l-8-8V24z"/>
-        <path d="M32,28V4H0v24h14v2H8v2h16v-2h-6v-2H32z M2,26V6h28v20H2z"/></g>
-      </svg>
-      <!-- TODO: Use ajax to populate body -->
-      <%= yield :application_body -%>
-      <!--<div id="test"></div>-->
-    </div>
   </div>
-</div>
 </body>
 </html>
