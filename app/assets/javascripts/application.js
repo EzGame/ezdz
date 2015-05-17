@@ -14,7 +14,7 @@ $(document).on('ready', function() {
     } else {
       $container.addClass('transformed');
       $container.velocity({
-        p: { rotateY: '-45deg' }
+        p: { rotateY: '-30deg' }
       });
     }
   });

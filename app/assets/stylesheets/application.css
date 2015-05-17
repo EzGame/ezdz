@@ -28,7 +28,6 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
 /* Background */
 #app-bg {
   position: absolute;
@@ -40,7 +39,6 @@ html, body {
   height: 100%;
   background: linear-gradient(to bottom,  #2c7890 0%,#2d3246 100%);
 }
-
 /* Main App */
 #app-main {
   width: 100%;
@@ -54,6 +52,7 @@ html, body {
   transform-style: preserve-3d;
   transform-origin: center center 500px;
 }
+/* Main App Body */
 #app-container #app-body {
   position: relative;
   width: 100%;
@@ -62,36 +61,86 @@ html, body {
   background: #202020;
   background-size: 100% 100%;
 }
+/* Main App Sidebar */
 #app-container #app-sidebar {
   position: absolute;
   height: 100%;
   width: 100%;
   background: transparent;
   transform-origin: left center;
-  -webkit-transform: rotateY(-120deg);
-  transform: rotateY(-120deg);
+  -webkit-transform: rotateY(-135deg);
+  transform: rotateY(-135deg);
 }
-#app-container #app-sidebar #app-sidebar-container {
+#app-sidebar #app-sidebar-container {
+  height: 100%;
   -webkit-transform: rotateY(180deg);
   transform: rotateY(180deg);
 }
-#app-container #app-sidebar #app-sidebar-container #app-menu {
+#app-sidebar #app-sidebar-container #app-menu {
+  height: 100%;
   position: absolute;
+  width: 250px;
   right: 0;
 }
-#app-container #app-sidebar #app-sidebar-container #app-menu li {
+#app-sidebar #app-sidebar-container #app-menu li {
   color: white;
+  position: relative;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  margin-right: 100px;
+  left: 0;
   font-size: 32px;
   font-weight: 100;
   font-family: 'Lato';
   list-style: none;
-  margin-right: 200px;
-  margin-top: 25px;
-  transition: 0.5s;
+  transition: 0.25s;
+  cursor: pointer;
 }
-#app-container #app-sidebar #app-sidebar-container #app-menu li.selected {
+#app-sidebar #app-sidebar-container #app-menu li.selected {
   color: gold;
+  cursor: default;
 }
-#app-container #app-sidebar #app-sidebar-container #app-menu li:hover {
-  padding-left: 50px;
+#app-sidebar #app-sidebar-container #app-menu li:hover {
+  padding-top: 20px;
+  padding-bottom: 20px;
+  font-size: 48px;
 }
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social {
+  position: absolute;
+  bottom: 75px;
+  margin-top: 25px;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social a {
+  color: white;
+  display: block;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  text-decoration: none;
+  transition: 0.25s;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social i {
+  transition: 0.25s;
+  font-size: 24px;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social span {
+  font-family: 'Lato';
+  font-size: 16px;
+  font-weight: 300;
+  transition: 0.25s;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social a:hover {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social a:hover i {
+  font-size: 32px;
+}
+#app-sidebar #app-sidebar-container #app-menu #app-menu-social a:hover span {
+  font-size: 24px;
+}
+
+
+
+
+
+
