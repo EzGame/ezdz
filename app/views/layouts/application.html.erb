@@ -34,9 +34,9 @@
         <div id="app-sidebar-container">
           <ul id="app-menu">
             <li class="selected">Home</li>
-            <li>Studio</li>
+            <li>Blog</li>
+            <li>Portfolio</li>
             <li>Gallery</li>
-            <li>Scribbles</li>
             <li>Contact</li>
             <div id="app-menu-social">
               <a href="https://instagram.com/ezdzdev/" target="_blank">
@@ -56,13 +56,12 @@
         </div>
       </div>
       <div id="app-body">
-        <svg id="fullscreen" width="32" height="32">
-          <g><path d="M20,8l8,8V8H20z M4,24h8l-8-8V24z"/>
-            <path d="M32,28V4H0v24h14v2H8v2h16v-2h-6v-2H32z M2,26V6h28v20H2z"/>
-          </g>
-        </svg>
+        <div id="app-topbar">
+          <i style="float:left;" class="fa fa-bars"></i>
+          <i style="float:right;" class="fa fa-expand"></i>
+        </div>
         <!-- TODO: Use ajax to populate body -->
-        <%= yield :application_body -%>
+        <iframe id="app-frame" src="/home">Herp Derp</iframe>
         <!--<div id="test"></div>-->
       </div>
     </div>
