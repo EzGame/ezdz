@@ -9,10 +9,7 @@ gem 'sqlite3'
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# httparty for sending RESTful API requests
-gem 'httparty'
-# bidirectional hashing
-gem 'hashids'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
@@ -22,9 +19,13 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
+# httparty for sending RESTful API requests
+gem 'httparty'
+# bidirectional hashing
+gem 'hashids'
 group :development, :test do
   # Way better exception screen for debugging
-  gem "better_errors"
+  gem 'better_errors'
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   # Annotate models on migrate
@@ -35,7 +36,7 @@ end
 
 group :production do
   # Dunno
-  gem 'capistrano', "~> 2.12.0"
+  gem 'capistrano', '~> 2.12.0'
   # Production server
-  gem "unicorn", "~> 4.1.0"
+  gem 'unicorn', '~> 4.1.0'
 end
