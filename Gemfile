@@ -1,42 +1,28 @@
 source 'https://rubygems.org'
 
+### Back End Gems ###
+gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
+gem 'jbuilder', '2.0'       # https://github.com/rails/jbuilder
+gem 'sqlite3',  '1.3.10'    # Use sqlite3 as the database for Active Record
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.0'
-# Use sqlite3 as the database for Active Record
-gem 'sqlite3'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
+### Middleware Gems ###
+gem 'rails', '4.2.0'        # Bundle edge Rails instead
+gem 'turbolinks'            # Turbolinks makes links in web app faster
+gem 'httparty', '0.13.3'    # httparty for sending RESTful API requests
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.0'
-# bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0', group: :doc
+### Front-End Gems ###
+gem 'sass-rails'            # Use SCSS for stylesheets
+gem 'jquery-rails'          # Use jquery as the JavaScript library
+gem 'velocityjs-rails'      # Use velocity js as animation library
+gem 'uglifier', '2.7.1'     # Uglifier for production assets
 
-# httparty for sending RESTful API requests
-gem 'httparty'
-# bidirectional hashing
-gem 'hashids'
 group :development, :test do
-  # Way better exception screen for debugging
-  gem 'better_errors'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  # Annotate models on migrate
-  gem 'annotate', '~> 2.6.6'
-  # Specs
-  gem 'rspec'
+  gem 'better_errors'       # Way better exception screen for debugging
+  gem 'spring'              # Spring speeds up development
+  gem 'rspec'               # Specs
 end
 
 group :production do
-  # Dunno
   gem 'capistrano', '~> 2.12.0'
-  # Production server
   gem 'unicorn', '~> 4.1.0'
 end

@@ -16,9 +16,15 @@
 !/log/.keep
 /tmp
 
-# DZ
+# Ignore ruby mine configs
 .idea/
-.irbrc
-.rvmrc
+
+# Ignore sensitive files
 config/database.yml
+
+# Ignore compiled assets
+public/web/
+
+# Ignore randoms
+.sass-cache/
 
