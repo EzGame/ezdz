@@ -17,6 +17,18 @@ namespace :web do
 
 
   def compile( sources )
+    # Compile typescript
+    puts "\e[1;33m** Compiling Typescripts\e[0;31m"
+    sources[:typescript].each do |src|
+      next if src.match /d\.ts$/
+      out = dst(src, '.ts')
+      response = system("tsc #{src} -out #{out}")
+
+      return unless response
+      puts "\e[32m#{src} ~> #{out}\e[0m"
+    end
+
+
     # Compile handlebars
     puts "\e[1;33m** Compiling handlebars\e[0;31m"
     sources[:handlebars].each do |src|
@@ -39,36 +51,15 @@ namespace :web do
     end if sources[:scss].present?
 
 
-    # Compile typescript
-    puts "\e[1;33m** Compiling Typescripts\e[0;31m"
-    sources[:typescript].each do |src|
-      next if src.match /d\.ts$/
-      out = dst(src, '.ts')
-      response = system("tsc #{src} -out #{out}")
-
-      return unless response
-      puts "\e[32m#{src} ~> #{out}\e[0m"
-    end
-
-
-    # Copy over lib
+    # copy over lib
+    # copy over tests
+    # copy over html
+      # vulcanize if release
+      # uglify if release
   end
 
 
-  # copy over node modules
-  # compile
-  # compile sass *.scss output/.scss
-  # Compile sass into css
-
-  # # Compile typescripts to js
-  # TypeScript::Node.compile_file('web/src/dz-blog/dz-blog.ts', '--target', 'ES5')
-  # # vulcanize somehow
-  # if Rails.env.production?
-  #   # uglify js
-  # end
-
-  # goal is to have a single html import for access to all components
-  desc 'Sets up required node packages on global, requires admin password'
+  desc 'Sets up required node packages on global, requires super user'
   task :setup do
     system 'sudo npm install -g handlebars'
     system 'sudo npm install -g typescript'
@@ -77,7 +68,7 @@ namespace :web do
 
 
   namespace :make do
-    desc 'TODO'
+    desc 'Compiles all front end assets from web/ to public/web/'
     task :all do
       # Find source files
       sources = {
@@ -90,7 +81,7 @@ namespace :web do
       compile(sources)
     end
 
-    desc 'TODO'
+    desc 'Cleans up all front end assets in public/web/'
     task :clean do
       system "rm -rf #{Rails.root}/public/web"
     end

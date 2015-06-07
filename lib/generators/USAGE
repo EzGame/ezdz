@@ -1,0 +1,14 @@
+Description:
+    Creates a stub web component
+
+    PLEASE USE THE CORRECT NAMING CONVENTION
+    Words are `-` delimited
+
+Example:
+    rails generate component my-web-component
+
+    This will create:
+        Template:     web/src/my-web-component.handlebars
+        HTML:         web/src/my-web-component.html
+        CSS:          web/src/my-web-component.scss
+        Typescript:   web/src/my-web-component.ts

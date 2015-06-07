@@ -1,0 +1,89 @@
+/* Place component css styles in here */
+/* TODO revisit media queries logic to speed up css selector speed */
+
+ez-blog {
+  @mixin margin{
+    @media (min-width: 769px) {
+      width: 668px;
+      margin: 0px auto;
+    }
+    @media (max-width: 768px) {
+      margin: 0px 50px 0px 50px;
+    }
+    @media (max-width: 480px) {
+      margin: 0px 5px 0px 5px;
+    }
+  }
+
+  @mixin font($type, $size) {
+    font-size: $size;
+
+    @if $type == header {
+      font-family: 'Lato', sans-serif;
+    }
+    @else if $type == body {
+      font-family: 'Crimson Text', serif;
+    }
+    @else if $type == mono {
+      font-family: 'Ubuntu Mono', monospace;
+    }
+  }
+
+  div.banner {
+    position: relative;
+    top: 0px;
+    width: 100%;
+    height: 400px;
+    margin-bottom: 30px;
+    overflow: hidden;
+
+    img {
+      left: 50%;
+      position: absolute;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    div.header {
+      h1 {
+        @include font(header, 36px);
+        @include margin;
+        color: #efefef;
+        font-weight: 900;
+        padding: 10px 0px 5px 0px;
+      }
+
+      h2 {
+        @include font(header, 20px);
+        @include margin;
+        color: #cfcfcf;
+        font-weight: 300;
+        padding: 0px 0px 10px 0px;
+      }
+    }
+  }
+
+  p {
+    @include font(body, 22px);
+    @include margin;
+    color: #505050;
+    line-height: 32px;
+  }
+
+  q {
+    @include font(header, 20px);
+    @include margin;
+    color: rgba(0,0,0,0.44);
+    display: block;
+    padding: 0px 50px 0px 5px;
+    text-align: right;
+  }
+
+  code {
+    @include font(mono, 20px);
+    @include margin;
+    border-left: 10px solid #888888;
+    display: block;
+    padding: 10px 5px 10px 50px;
+  }
+}
