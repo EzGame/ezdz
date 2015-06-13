@@ -20,6 +20,7 @@ group :development, :test do
   gem 'better_errors'       # Way better exception screen for debugging
   gem 'spring'              # Spring speeds up development
   gem 'rspec'               # Specs
+  gem 'awesome_print'       # Get some color into the console
 end
 
 group :production do
