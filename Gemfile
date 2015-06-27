@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ### Back End Gems ###
 gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
 gem 'jbuilder', '2.0'       # https://github.com/rails/jbuilder
-gem 'sqlite3',  '1.3.10'    # Use sqlite3 as the database for Active Record
+gem 'mysql2'                # Use mysql as database
 
 ### Middleware Gems ###
 gem 'rails', '4.2.0'        # Bundle edge Rails instead

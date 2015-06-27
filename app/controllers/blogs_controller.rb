@@ -1,15 +1,12 @@
 class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
-  # GET /blogs
-  # GET /blogs.json
   def index
-    @blogs = Blog.all
+    render json: Blog.all.map(&:to_preview_hash).to_json
   end
 
-  # GET /blogs/1
-  # GET /blogs/1.json
   def show
+    render json: Blog.find(params[:id]).to_full_hash.to_json
   end
 
   # GET /blogs/new

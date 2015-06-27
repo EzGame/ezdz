@@ -7,22 +7,11 @@
     <div name="body"></div>
   </div>
 {{else}}
-  {{#if type}} {{! type = 1 means its an album }}
-    <div name="margin">
-      <h1 name="title"></h1>
-      <div name="date"></div>
-      <img name="first-photo" src="">
-      <div name="body"></div>
-      <div name="photos"></div>
-    </div>
-  {{else}} {{! type = 0 means its a text }}
-    <div name="banner">
-      <img name="first-photo" src="">
-      <div name="title-bg">
-        <h1 name="title"></h1>
-        <div name="date"></div>
-      </div>
-    </div>
+  <div name="margin">
+    <h1 name="title"></h1>
+    <div name="date"></div>
+    <img name="first-photo" src="">
     <div name="body"></div>
-  {{/if}}
+    <div name="photos"></div>
+  </div>
 {{/if}}

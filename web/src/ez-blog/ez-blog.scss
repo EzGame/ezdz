@@ -79,11 +79,19 @@ ez-blog {
       display: block;
       padding: 10px 5px 10px 50px;
     }
+
+    img {
+      box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+      display: block;
+      margin: 10px auto 10px auto;
+      max-width: 100%;
+    }
   }
 
   div[name=photos] img {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     display: block;
     margin: 20px auto 20px auto;
+    max-width: 100%;
   }
 }

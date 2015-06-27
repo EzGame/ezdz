@@ -1,9 +1,8 @@
 class CreateBlogs < ActiveRecord::Migration
   def change
     create_table :blogs do |t|
-      t.integer :type,          null: false, default: 0
       t.string :title,          null: false
-      t.string :body
+      t.text :body,             limit: 4294967295
       t.string :tags
       t.timestamps              null: false
     end

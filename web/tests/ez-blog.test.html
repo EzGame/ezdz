@@ -27,24 +27,18 @@
 
 <script>
   // Setup
-  var model = {
-    title: 'A long ass title for a short ass test.',
-    date: 'Monday, January 1st, 2015',
-    body: '<p>Bacon ipsum dolor amet andouille meatloaf rump sausage pastrami capicola beef ribs chuck bresaola. Drumstick pastrami frankfurter venison, tongue leberkas t-bone sirloin meatball kielbasa beef ribs shank andouille turducken doner. Kielbasa frankfurter landjaeger, jerky hamburger shank tail chicken ham hock meatball rump andouille turkey. Frankfurter venison bresaola picanha biltong beef ribs meatball spare ribs. Sausage flank chuck, pancetta bacon tri-tip pork belly ham hock. Tri-tip andouille pork turkey, beef filet mignon t-bone shankle swine strip steak boudin leberkas sirloin. Picanha spare ribs venison salami kevin.</p><q>These q tags are great</q><code>if (a or b)puts c end</code>',
-    first_photo: "https://thisshtsdelicious.files.wordpress.com/2012/05/dsc00003-001.jpg",
-    photos: [
-      "http://www.businessinsider.com/image/4f3433986bb3f7b67a00003c/cute-cat.jpg",
-      "http://s.hswstatic.com/gif/whiskers-sam.jpg"
-    ],
-    tags: ["one", "two"],
-    type: 1,
-    preview: false
-  };
-
   demo = document.querySelector('div.demo');
   blog = new ez.EzBlogElement;
-  blog.model = model;
   demo.appendChild(blog);
+
+  $.ajax({
+    url: '/blog/1',
+    dataType: 'json',
+    success: function(response) {
+      blog.model = response;
+    }
+  });
+
 </script>
 </body>
 </html>
