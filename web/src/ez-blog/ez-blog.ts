@@ -22,27 +22,44 @@ module ez {
         EzBlog.call(this, this);
 
       this._render();
-      this._server = <EzServerElement>document.createElement('ez-server');
-      this._server.resource = 'blogs';
+      this._server = <EzServerElement>document.
+          querySelector('#' + this.serverId);
+      this._server.find(parseInt(this.id)).
+          then((model) => { this.model = model; });
     }
 
     attachedCallback() {
       /* Called when component is attached to DOM */
-      if (this._element.getAttribute('blogId') !== null) {
-        this._server.find(parseInt(this._element.getAttribute('blogId'))).
-          then((model) => { this.model = model; });
-      }
     }
 
     attributeChangedCallback(attr: string, old: string, value: string) {
-      if (attr == 'blogId') {
-        this._server.find(parseInt(value)).
-          then((model) => { this.model = model; });
-      }
     }
 
     detachedCallback() {
       /* Called when component is removed from DOM */
+    }
+
+    set id(newId: string) {
+      this._element.setAttribute('id', newId);
+      this._server.find(parseInt(newId)).
+          then((model) => { this.model = model; });
+    }
+
+    get id(): string{
+      return this._element.getAttribute('id');
+    }
+
+    set serverId(newServerId: string) {
+      this._element.setAttribute('serverId', newServerId);
+      this._server = <EzServerElement>document.
+          querySelector('#' + newServerId);
+      if (this._server.resource != 'blogs') {
+        throw('ERROR: This server is not setup for blogs!');
+      }
+    }
+
+    get serverId() :string {
+      return this._element.getAttribute('serverId');
     }
 
     set model(newModel: any) {

@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+  <title>ez-blog</title>
+  <script src='web/lib/vendor/webcomponents-lite.min.js'></script>
+  <script src='web/lib/vendor/handlebars.runtime.min.js'></script>
+  <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
+  <link rel='import' href='web/lib/ez-blog.html'>
+  <style>
+    body,html {
+      margin: 0;
+      padding: 0;
+    }
+  </style>
+</head>
+<body>
+  <ez-server id='ezdz' resource='blogs'></ez-server>
+  <div id='blogs'></div>
+</body>
+<script>
+  var server = $('ez-server#ezdz')[0];
+  var blogs = $('div#blogs')[0];
+  server.index().then(function(results) {
+    for (var i = 0; i < results.length; i++) {
+      blog = new ez.EzBlogElement;
+      blog.model = results[i];
+      blogs.appendChild(blog);
+    }
+  })
+</script>
+</html>

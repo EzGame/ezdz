@@ -8,8 +8,6 @@ module ez {
 
     _template = Handlebars.templates['ez-server'];
 
-    private _resource: string;
-
     createdCallback() {
       /* Called when component is created */
       if (!this._element)
@@ -18,27 +16,29 @@ module ez {
 
     attachedCallback() {
       /* Called when component is attached to DOM */
-      if (this._element.getAttribute('resource') == null) {
-        this._element.setAttribute('resource', 'blogs');
-      }
     }
 
     attributeChangedCallback(attr: string, old: string, value: string) {
-      if (attr == 'resource') {
-        this.resource = value;
-      }
     }
 
     detachedCallback() {
       /* Called when component is removed from DOM */
     }
 
+    set id(newId: string) {
+      this._element.setAttribute('id', newId);
+    }
+
+    get id() :string {
+      return this._element.getAttribute('id');
+    }
+
     set resource(newResource: string) {
-      this._resource = newResource;
+      this._element.setAttribute('resource', newResource);
     }
 
     get resource() :string {
-      return this._resource;
+      return this._element.getAttribute('resource');
     }
 
     public find(id: number) :Promise<any> {
@@ -70,10 +70,11 @@ module ez {
     }
 
     private _constructUrl(action: string, params?: any) :string {
+      /* TODO: Auto params appending */
       if (action == 'show') {
-        return '/' + this._resource + '/' + params.id;
+        return '/' + this.resource + '/' + params.id;
       } else if (action == 'index') {
-        return '/' + this._resource + '/';
+        return '/' + this.resource;
       }
     }
   }
