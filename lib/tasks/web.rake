@@ -1,4 +1,5 @@
 namespace :web do
+  # TODO: check file update time to see if file needs compiling
 
   DESTINATION = "public/web/lib"
   def dst( src, type )

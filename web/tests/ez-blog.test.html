@@ -23,22 +23,7 @@
 <body>
 <h1>ez-blog</h1>
 <div class="demo">
+  <ez-blog blogId="1"></ez-blog>
 </div>
-
-<script>
-  // Setup
-  demo = document.querySelector('div.demo');
-  blog = new ez.EzBlogElement;
-  demo.appendChild(blog);
-
-  $.ajax({
-    url: '/blog/1',
-    dataType: 'json',
-    success: function(response) {
-      blog.model = response;
-    }
-  });
-
-</script>
 </body>
 </html>

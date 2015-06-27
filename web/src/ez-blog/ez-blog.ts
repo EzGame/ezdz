@@ -1,5 +1,6 @@
 /* Be sure to include dependencies here */
 /// <reference path="../ez.ts"/>
+/// <reference path="../ez-server/ez-server.ts"/>
 
 module ez {
   class EzBlog {
@@ -13,6 +14,7 @@ module ez {
     private _dateElement: HTMLDivElement;
     private _bodyElement: HTMLDivElement;
     private _photosElement: HTMLDivElement;
+    private _server: EzServerElement;
 
     createdCallback() {
       /* Called when component is created */
@@ -20,13 +22,23 @@ module ez {
         EzBlog.call(this, this);
 
       this._render();
+      this._server = <EzServerElement>document.createElement('ez-server');
+      this._server.resource = 'blogs';
     }
 
     attachedCallback() {
       /* Called when component is attached to DOM */
+      if (this._element.getAttribute('blogId') !== null) {
+        this._server.find(parseInt(this._element.getAttribute('blogId'))).
+          then((model) => { this.model = model; });
+      }
     }
 
     attributeChangedCallback(attr: string, old: string, value: string) {
+      if (attr == 'blogId') {
+        this._server.find(parseInt(value)).
+          then((model) => { this.model = model; });
+      }
     }
 
     detachedCallback() {
