@@ -2,138 +2,49 @@
 <html>
 <head>
   <title>ez-blog</title>
-  <script src="../src/vendor/webcomponents-lite.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/3.0.3/handlebars.runtime.min.js"></script>
+  <script src="../lib/vendor/webcomponents-lite.min.js"></script>
+  <script src="../lib/vendor/handlebars.runtime.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-  <link rel="import" href="../../public/web/src/dz-blog.js">
-  <link href='http://fonts.googleapis.com/css?family=Ubuntu+Mono|Lato:300,700|Crimson+Text' rel='stylesheet' type='text/css'>
+  <link rel="import" href="../lib/ez-blog.html">
   <style>
-    body {
+    body,html {
       background-color: #222222;
-    }
-    h1 {
-      color: #fdfdfd;
+      margin: 0;
     }
     div.demo {
       background: #efefef;
       display: inline-block;
-      margin: 10px;
       vertical-align: top;
-    }
-
-    div h1 {
-      color: #efefef;
-      font-family: 'Lato', sans-serif;
-      font-size: 36px;
-      font-weight: 700;
-      padding: 10px 0px 5px 0px;
-      margin: 0px 100px 0px 100px;
-    }
-
-    div h2 {
-      color: #cfcfcf;
-      font-family: 'Lato', sans-serif;
-      font-size: 20px;
-      font-weight: 300;
-      padding: 0px 0px 10px 0px;
-      margin: 0px 100px 0px 100px;
-    }
-
-    div.test {
-      position: relative;
-    }
-
-    div.test div.banner {
-      position: relative;
-      top: 0px;
       width: 100%;
-      height: 400px;
-      margin-bottom: 30px;
-      overflow: hidden;
-    }
-
-    div.test div img {
-      left: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translate(-50%, -50%);
-    }
-
-    div.test div.header {
-      bottom: 0px;
-      position: absolute;
-      width: 100%;
-      background: rgba(0,0,0,0.8);
-    }
-
-    div p {
-      color: #505050;
-      font-family: 'Crimson Text', serif;
-      font-size: 22px;
-      line-height: 32px;
-      margin: 0 100px 30px 100px;
-    }
-
-    div q {
-      color: rgba(0,0,0,0.44);
-      display: block;
-      font-family: 'Lato', sans-serif;
-      font-size: 20px;
-      margin: 0px 100px 15px 100px;
-      padding: 0px 50px 0px 5px;
-      text-align: right;
-    }
-
-    div code {
-      border-left: 10px solid #888888;
-      display: block;
-      font-family: 'Ubuntu Mono', monospace;
-      font-size: 20px;
-      margin: 0px 100px 15px 100px;
-      padding: 10px 5px 10px 50px;
+      margin: 0;
     }
   </style>
 </head>
 <body>
-<h1>dz-blog</h1>
+<h1>ez-blog</h1>
 <div class="demo">
-  <div class="test">
-    <div class="banner">
-      <img src="https://thisshtsdelicious.files.wordpress.com/2012/05/dsc00003-001.jpg">
-      <div class="header">
-        <h1>A long ass title for a short ass test.</h1>
-        <h2>This is a sub header... Aren't unit tests great? Subtitles, however, are not.</h2>
-      </div>
-    </div>
-    <p>
-      In actuality, I'm probably going to end up using this page to write my blog posts because i'm way too fucking lazy to write an entry page.
-    </p>
-    <q>
-      These q tags are great
-    </q>
-    <p>
-      Bacon ipsum dolor amet andouille meatloaf rump sausage pastrami capicola beef ribs chuck bresaola. Drumstick pastrami frankfurter venison, tongue leberkas t-bone sirloin meatball kielbasa beef ribs shank andouille turducken doner. Kielbasa frankfurter landjaeger, jerky hamburger shank tail chicken ham hock meatball rump andouille turkey. Frankfurter venison bresaola picanha biltong beef ribs meatball spare ribs. Sausage flank chuck, pancetta bacon tri-tip pork belly ham hock. Tri-tip andouille pork turkey, beef filet mignon t-bone shankle swine strip steak boudin leberkas sirloin. Picanha spare ribs venison salami kevin.
-    </p>
-    <code>
-      if (a or b)
-      puts c
-      end
-    </code>
-    <p>
-      Ham swine hamburger pancetta shankle kevin ribeye jerky salami prosciutto cupim. Tenderloin cow beef hamburger, meatloaf turkey pancetta. Turducken brisket sausage pancetta tri-tip short ribs. T-bone boudin chuck doner, beef ribs leberkas pork loin biltong ball tip. Landjaeger tail turducken salami. Pancetta tri-tip ham hock, pork shank fatback shoulder kevin corned beef capicola strip steak alcatra tenderloin. Ham salami tenderloin swine ground round.
-    </p>
-  </div>
-
 </div>
 
 <script>
-  window.addEventListener('WebComponentsReady', function() {
-    document.body.removeAttribute('unresolved');
-    document.querySelector('w-jasmine').run(function() {
-      /* Write your unit tests here
-       * http://jasmine.github.io/2.0/introduction.html */
-    });
-  });
+  // Setup
+  var model = {
+    title: 'A long ass title for a short ass test.',
+    date: 'Monday, January 1st, 2015',
+    body: '<p>Bacon ipsum dolor amet andouille meatloaf rump sausage pastrami capicola beef ribs chuck bresaola. Drumstick pastrami frankfurter venison, tongue leberkas t-bone sirloin meatball kielbasa beef ribs shank andouille turducken doner. Kielbasa frankfurter landjaeger, jerky hamburger shank tail chicken ham hock meatball rump andouille turkey. Frankfurter venison bresaola picanha biltong beef ribs meatball spare ribs. Sausage flank chuck, pancetta bacon tri-tip pork belly ham hock. Tri-tip andouille pork turkey, beef filet mignon t-bone shankle swine strip steak boudin leberkas sirloin. Picanha spare ribs venison salami kevin.</p><q>These q tags are great</q><code>if (a or b)puts c end</code>',
+    first_photo: "https://thisshtsdelicious.files.wordpress.com/2012/05/dsc00003-001.jpg",
+    photos: [
+      "http://www.businessinsider.com/image/4f3433986bb3f7b67a00003c/cute-cat.jpg",
+      "http://s.hswstatic.com/gif/whiskers-sam.jpg"
+    ],
+    tags: ["one", "two"],
+    type: 1,
+    preview: false
+  };
+
+  demo = document.querySelector('div.demo');
+  blog = new ez.EzBlogElement;
+  blog.model = model;
+  demo.appendChild(blog);
 </script>
 </body>
 </html>

@@ -1,5 +1,4 @@
 /* Application.css require tree
- *= require normalize
  *= require_self
  */
 
@@ -13,7 +12,6 @@ html, body {
   height: 100%;
   overflow: hidden;
 }
-
 #app-intro {
   position: absolute;
   background: #000000;

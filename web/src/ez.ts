@@ -45,4 +45,8 @@ module ez {
   export function createDocumentFragment(html: string): DocumentFragment {
     return document.createRange().createContextualFragment(html);
   }
+
+  export function getChild(parent, selector): any {
+    return $(parent).find(selector)[0];
+  }
 }

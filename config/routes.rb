@@ -1,5 +1,11 @@
 Rails.application.routes.draw do
 
+  resources :albums
+
+  resources :photos
+
+  resources :blogs
+
   # Home/Root
   root 'home#index'
   resources :home, :only => :index
