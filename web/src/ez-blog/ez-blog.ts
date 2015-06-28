@@ -14,6 +14,8 @@ module ez {
     private _dateElement: HTMLDivElement;
     private _bodyElement: HTMLDivElement;
     private _photosElement: HTMLDivElement;
+    private _tagsElement: HTMLDivElement;
+
     private _server: EzServerElement;
 
     createdCallback() {
@@ -56,13 +58,33 @@ module ez {
       this._firstPhotoElement.src = this._model.first_photo;
       this._bodyElement.innerHTML = this._model.body;
 
-      // could probably be its own component
-      if (this._model.photos && this._photosElement) {
+      if (this._model.photos) {
         for (var i = 0; i < this._model.photos.length; i++) {
           var el = document.createElement('img');
           el.src = this._model.photos[i];
           this._photosElement.appendChild(el);
         }
+      }
+
+      if (this._model.tags) {
+        this._tagsElement.innerHTML = "TAGS: ";
+        for (var i = 0; i < this._model.tags.length; i++) {
+          var newEl = document.createElement('a');
+          newEl.setAttribute('name','tag');
+          newEl.innerHTML = this._model.tags[i];
+          newEl.onclick = () :void => {
+            console.log("hi");
+          };
+          this._tagsElement.appendChild(newEl);
+        }
+      }
+
+      if (this._model.preview) {
+        var link = getChild(this._element, '[name=read]');
+        link.onclick = () :void => {
+          this._server.find(this._model.id).
+              then((result) => { this.model = result; })
+        };
       }
     }
 
@@ -83,8 +105,8 @@ module ez {
         this._dateElement = getChild(this._element, '[name=date]');
         this._firstPhotoElement = getChild(this._element, '[name=first-photo]');
         this._bodyElement = getChild(this._element, '[name=body]');
-        // could probably be its own component
         this._photosElement = getChild(this._element, '[name=photos]');
+        this._tagsElement = getChild(this._element, '[name=tags]');
       }
     }
   }

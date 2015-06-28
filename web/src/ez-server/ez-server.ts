@@ -69,6 +69,11 @@ module ez {
       });
     }
 
+    public search() :Promise<any> {
+      // TODO
+      return undefined
+    }
+
     private _constructUrl(action: string, params?: any) :string {
       /* TODO: Auto params appending */
       if (action == 'show') {

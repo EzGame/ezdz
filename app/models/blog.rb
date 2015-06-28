@@ -27,4 +27,5 @@ class Blog < ActiveRecord::Base
   end
 
   # TODO comment records
+  # TODO tags all to upper case
 end

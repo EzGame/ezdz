@@ -39,7 +39,11 @@
   var blogs = $('div#blogs')[0];
   server.index().then(function(results) {
     for (var i = 0; i < results.length; i++) {
-      blog = new ez.EzBlogElement;
+      var blog = new ez.EzBlogElement;
+      blog.serverId = server.getAttribute('id');
+      blog.model = results[i];
+      blogs.appendChild(blog);
+      var blog = new ez.EzBlogElement;
       blog.serverId = server.getAttribute('id');
       blog.model = results[i];
       blogs.appendChild(blog);
