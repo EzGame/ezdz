@@ -2,12 +2,29 @@
 <html>
 <head>
   <title>ez-blog</title>
-  <script src='web/lib/vendor/webcomponents-lite.min.js'></script>
-  <script src='web/lib/vendor/handlebars.runtime.min.js'></script>
-  <script src='//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js'></script>
-  <link rel='import' href='web/lib/ez-blog.html'>
+  <script type="text/javascript">
+  WebFontConfig = {
+    google: {
+      families: [
+        'Josefin+Sans:300,400,600:latin',
+        'Ubuntu+Mono::latin',
+        'Open+Sans:300italic,400italic,400,300:latin'
+      ]
+    }
+  };
+  (function() {
+    var wf = document.createElement('script');
+    wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+      '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+    wf.type = 'text/javascript';
+    wf.async = 'true';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(wf, s);
+  })(); </script>
+
+  <link rel='import' href='web/component.html'>
   <style>
-    body,html {
+    body, html {
       margin: 0;
       padding: 0;
     }
@@ -23,9 +40,11 @@
   server.index().then(function(results) {
     for (var i = 0; i < results.length; i++) {
       blog = new ez.EzBlogElement;
+      blog.serverId = server.getAttribute('id');
       blog.model = results[i];
       blogs.appendChild(blog);
     }
   })
+  /* TODO blog navigation (ajax history, pagnation, search, sections)*/
 </script>
 </html>

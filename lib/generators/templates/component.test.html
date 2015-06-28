@@ -2,8 +2,9 @@
 <html>
 <head>
   <title>XcomponentX</title>
-  <script src="../lib/vendor/webcomponents-lite.min.js"></script>
-  <script src="../lib/vendor/handlebars.runtime.min.js"></script>
+  <script src="../vendors/webcomponents-lite.min.js"></script>
+  <script src="../vendors/handlebars.runtime.min.js"></script>
+  <script src="../vendors/jquery.min.js"></script>
   <link rel="import" href="../lib/XcomponentX.html">
 
   <style>
@@ -24,17 +25,5 @@
 <div class="demo">
   <XcomponentX></XcomponentX>
 </div>
-
-<w-jasmine></w-jasmine>
-
-<script>
-  window.addEventListener('WebComponentsReady', function() {
-    document.body.removeAttribute('unresolved');
-    document.querySelector('w-jasmine').run(function() {
-      /* Write your unit tests here
-       * http://jasmine.github.io/2.0/introduction.html */
-    });
-  });
-</script>
 </body>
 </html>

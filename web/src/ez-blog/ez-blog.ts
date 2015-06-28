@@ -24,8 +24,6 @@ module ez {
       this._render();
       this._server = <EzServerElement>document.
           querySelector('#' + this.serverId);
-      this._server.find(parseInt(this.id)).
-          then((model) => { this.model = model; });
     }
 
     attachedCallback() {
@@ -39,23 +37,10 @@ module ez {
       /* Called when component is removed from DOM */
     }
 
-    set id(newId: string) {
-      this._element.setAttribute('id', newId);
-      this._server.find(parseInt(newId)).
-          then((model) => { this.model = model; });
-    }
-
-    get id(): string{
-      return this._element.getAttribute('id');
-    }
-
     set serverId(newServerId: string) {
       this._element.setAttribute('serverId', newServerId);
       this._server = <EzServerElement>document.
           querySelector('#' + newServerId);
-      if (this._server.resource != 'blogs') {
-        throw('ERROR: This server is not setup for blogs!');
-      }
     }
 
     get serverId() :string {
@@ -106,6 +91,8 @@ module ez {
 
   export interface EzBlogElement extends HTMLElement {
     /* Component public interfaces in here */
+    serverId: number,
+    model: any
   }
 
   /* Export Component */

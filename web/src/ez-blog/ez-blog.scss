@@ -17,11 +17,11 @@ ez-blog {
   }
 
   @mixin margin {
-    @media (min-width: 769px) {
-      width: 668px;
+    @media (min-width: 869px) {
+      width: 768px;
       margin: 0px auto;
     }
-    @media (max-width: 768px) {
+    @media (max-width: 868px) {
       margin: 0px 50px 0px 50px;
     }
     @media (max-width: 480px) {

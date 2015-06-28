@@ -3,6 +3,7 @@ class Blog < ActiveRecord::Base
 
   def to_preview_hash
     return {
+      :id          => self.id,
       :title       => self.title,
       :date        => self.created_at.strftime('%A, %B %d %Y'),
       :body        => self.body.truncate_words(30) + '</p>',
@@ -14,6 +15,7 @@ class Blog < ActiveRecord::Base
 
   def to_full_hash
     return {
+      :id          => self.id,
       :title       => self.title,
       :date        => self.created_at.strftime('%A, %B %d %Y'),
       :body        => self.body,
