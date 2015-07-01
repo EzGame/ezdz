@@ -39,6 +39,10 @@ module ez {
       return this._currentPage;
     }
 
+    get numOfPages(): number {
+      return Math.ceil(this._results.length / this._resultsPerPage);
+    }
+
     /* NOTE: This double promise - r there performance issues?*/
     public index(resource: string, resultsPerPage?: number): Promise<any> {
       this._results = [];
@@ -80,6 +84,7 @@ module ez {
   export interface EzPagnationServerElement extends EzServerElement {
     /* Component public interfaces in here */
     currentPage: number,
+    numOfPages: number,
     index(resource: string, resultsPerPage?: number) :Promise<any>,
     nextPage(): any,
     prevPage(): any
