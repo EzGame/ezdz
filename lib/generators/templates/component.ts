@@ -12,7 +12,7 @@ module ez {
       if (!this._element)
         XComponentX.call(this, this);
 
-      this._element.appendChild(ez.createDocumentFragment(this._template));
+      this._element.appendChild(ez.createDocumentFragment(this._template({})));
     }
 
     attachedCallback() {

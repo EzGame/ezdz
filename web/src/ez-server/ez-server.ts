@@ -3,10 +3,8 @@
 /* TODO: caching */
 /* TODO: ajax backing */
 module ez {
-  class EzServer {
+  export class EzServer {
     constructor(private _element: EzServerElement) {}
-
-    _template = Handlebars.templates['ez-server'];
 
     createdCallback() {
       /* Called when component is created */
@@ -33,18 +31,10 @@ module ez {
       return this._element.getAttribute('id');
     }
 
-    set resource(newResource: string) {
-      this._element.setAttribute('resource', newResource);
-    }
-
-    get resource() :string {
-      return this._element.getAttribute('resource');
-    }
-
-    public find(id: number) :Promise<any> {
+    public find(resource: string, id: number) :Promise<any> {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
-          url: this._constructUrl('show', {id: id}),
+          url: this._constructUrl(resource, 'show', {id: id}),
           success: function(response) {
             resolve(response);
           },
@@ -55,10 +45,10 @@ module ez {
       });
     }
 
-    public index() :Promise<any> {
+    public index(resource: string): Promise<any> {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
-          url: this._constructUrl('index'),
+          url: this._constructUrl(resource, 'index'),
           success: function(response) {
             resolve(response);
           },
@@ -74,20 +64,20 @@ module ez {
       return undefined
     }
 
-    private _constructUrl(action: string, params?: any) :string {
+    private _constructUrl(resource: string, action: string,
+      params?: any) :string {
       /* TODO: Auto params appending */
       if (action == 'show') {
-        return '/' + this.resource + '/' + params.id;
+        return '/' + resource + '/' + params.id;
       } else if (action == 'index') {
-        return '/' + this.resource;
+        return '/' + resource;
       }
     }
   }
 
   export interface EzServerElement extends HTMLElement {
-    resource: string,
-    find(id: number): Promise<any>,
-    index(): Promise<any>
+    find(resource: string, id: number): Promise<any>,
+    index(resource: string): Promise<any>
   }
 
   /* Export Component */

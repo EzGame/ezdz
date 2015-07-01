@@ -120,8 +120,7 @@ ez-blog {
 
   a[name=read] {
     @include font(header, 16px);
-    background: #CCCCCC;
-    color: #FFFFFF;
+    color: #000000;
     cursor: pointer;
     font-weight: 400;
     right: 0;
