@@ -9,7 +9,8 @@ module ez {
     }
 
     private _results: any;
-    private _currentPage: number
+    private _currentPage: number;
+    private _resultsPerPage: number;
 
     createdCallback() {
       /* Called when component is created */
@@ -17,7 +18,9 @@ module ez {
         EzPagnationServer.call(this, this);
 
       // Initialize at 0, meaning no results have been fetched
+      this._results = [];
       this._currentPage = 0;
+      this._resultsPerPage = 0;
     }
 
     attachedCallback() {
@@ -36,20 +39,41 @@ module ez {
       return this._currentPage;
     }
 
+    /* NOTE: This double promise - r there performance issues?*/
     public index(resource: string, resultsPerPage?: number): Promise<any> {
-      return super.index(resource);
+      this._results = [];
+
+      return new Promise<any>((resolve, reject) => {
+        super.index(resource).then((results) => {
+          this._results = results;
+          this._currentPage = 1;
+          this._resultsPerPage = resultsPerPage;
+          resolve(this._findResultsByPage(1));
+        });
+      })
     }
 
-    public nextPage(): any {
+    public nextPage(): Array<any> {
       if (this._currentPage > 0) {
+        var results = this._findResultsByPage(this._currentPage + 1);
+        if (results) this._currentPage += 1;
+        return results;
       }
       return null;
     }
 
-    public prevPage(): any {
+    public prevPage(): Array<any> {
       if (this._currentPage > 1) {
+        this._currentPage -= 1;
+        return this._findResultsByPage(this._currentPage);
       }
       return null;
+    }
+
+    private _findResultsByPage(page: number): Array<any>{
+      return this._results.slice(
+        (page - 1) * this._resultsPerPage,
+        (page - 1) * this._resultsPerPage + this._resultsPerPage);
     }
   }
 

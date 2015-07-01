@@ -2,6 +2,7 @@
 <html>
 <head>
   <title>ez-blog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=yes, minimal-ui">
   <script type="text/javascript">
   WebFontConfig = {
     google: {
@@ -31,18 +32,14 @@
   </style>
 </head>
 <body>
-  <ez-server id='ezdz' resource='blogs'></ez-server>
+  <ez-pagnation-server id='ezdz'></ez-pagnation-server>
   <div id='blogs'></div>
 </body>
 <script>
-  var server = $('ez-server#ezdz')[0];
+  var server = $('ez-pagnation-server#ezdz')[0];
   var blogs = $('div#blogs')[0];
-  server.index().then(function(results) {
+  server.index('blogs',5).then(function(results) {
     for (var i = 0; i < results.length; i++) {
-      var blog = new ez.EzBlogElement;
-      blog.serverId = server.getAttribute('id');
-      blog.model = results[i];
-      blogs.appendChild(blog);
       var blog = new ez.EzBlogElement;
       blog.serverId = server.getAttribute('id');
       blog.model = results[i];

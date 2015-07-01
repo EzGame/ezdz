@@ -23,7 +23,13 @@
 <h1>ez-pagnation-server</h1>
 
 <div class="demo">
-  <ez-pagnation-server></ez-pagnation-server>
+  <ez-pagnation-server id='ezdz'></ez-pagnation-server>
+  <div id='blogs'></div>
 </div>
 </body>
+<script>
+  var server = $('ez-pagnation-server#ezdz')[0];
+  var blogs = $('div#blogs')[0];
+  server.index('blogs',5);
+</script>
 </html>

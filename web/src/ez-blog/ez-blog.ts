@@ -55,8 +55,11 @@ module ez {
 
       this._titleElement.innerHTML = this._model.title;
       this._dateElement.innerHTML = this._model.date;
-      this._firstPhotoElement.src = this._model.first_photo;
       this._bodyElement.innerHTML = this._model.body;
+
+      if (this._firstPhotoElement) {
+        this._firstPhotoElement.src = this._model.first_photo;
+      }
 
       if (this._model.photos) {
         for (var i = 0; i < this._model.photos.length; i++) {

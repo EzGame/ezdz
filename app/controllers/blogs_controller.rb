@@ -3,7 +3,7 @@ class BlogsController < ApplicationController
 
   def index
     # TODO pagnation
-    render json: Blog.all.map(&:to_preview_hash).to_json
+    render json: Blog.order('created_at desc').map(&:to_preview_hash).to_json
   end
 
   def show

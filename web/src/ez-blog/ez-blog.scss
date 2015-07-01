@@ -1,6 +1,8 @@
 /* Place component css styles in here */
 
 ez-blog {
+  $section-divide: 30px;
+
   @mixin font($type, $size) {
     font-size: $size;
     @if $type == header {
@@ -30,7 +32,7 @@ ez-blog {
   }
 
   display: block;
-  padding-bottom: 50px;
+  padding: 50px 0;
   position: relative;
 
   div[name=margin] {
@@ -53,15 +55,18 @@ ez-blog {
   img[name=first-photo] {
     box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
     max-width: 100%;
-    margin-top: 15px;
+    margin-top: $section-divide;
   }
 
   div[name=body] {
+    margin-top: $section-divide;
+
     p {
       @include font(body, 16px);
       color: #303030;
-      font-weight: 300;
+      font-weight: 400;
       line-height: 24px;
+      margin-top: $section-divide;
     }
 
     q {
@@ -71,6 +76,7 @@ ez-blog {
       display: block;
       font-weight: 400;
       padding: 0px 50px 0px 5px;
+      margin-top: $section-divide;
       text-align: right;
     }
 
@@ -79,23 +85,22 @@ ez-blog {
       border-left: 5px solid #000000;
       display: block;
       padding: 10px 5px 10px 50px;
+      margin-top: $section-divide;
     }
 
     img {
       box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
       display: block;
-      margin: 10px auto 10px auto;
+      margin: $section-divide auto 0px auto;
       max-width: 100%;
     }
   }
 
   div[name=photos] {
-    padding-bottom: 30px;
-
     img {
       box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
       display: block;
-      margin: 20px auto 20px auto;
+      margin: $section-divide auto 0px auto;
       max-width: 100%;
     }
   }
@@ -107,26 +112,25 @@ ez-blog {
     left: 0;
     line-height: 16px;
     position: absolute;
-    top: 0;
+    top: 30px;
 
     a[name=tag] {
-      background: #CCCCCC;
-      color: #FFFFFF;
+      color: #03A9F4;
       cursor: pointer;
-      padding: 5px 5px 0px 5px;
+      padding: 5px 2px 0px 5px;
       margin: 0 2px;
     }
   }
 
   a[name=read] {
     @include font(header, 16px);
-    color: #000000;
+    color: #03A9F4;
     cursor: pointer;
     font-weight: 400;
     right: 0;
     line-height: 16px;
     padding: 5px 10px 0px 10px;
     position: absolute;
-    top: -5px;
+    top: 25px;
   }
 }
