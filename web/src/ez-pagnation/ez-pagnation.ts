@@ -31,7 +31,6 @@ module ez {
       this._resource = this._element.getAttribute('resource');
       this._resultsPerPage =
           parseInt(this._element.getAttribute('resultsPerPage')) || 5;
-      this._currentPage = 1;
 
       // Template
       this._element.appendChild(
@@ -99,6 +98,7 @@ module ez {
           newEl.serverId = this._pagnationServerElement.getAttribute('id');
           this._pageContentElement.appendChild(newEl);
         }
+        this._currentPage = page;
 
         // scroll to top;
         document.body.scrollTop = document.documentElement.scrollTop = 0;

@@ -32,20 +32,9 @@
   </style>
 </head>
 <body>
-  <ez-pagnation-server id='ezdz'></ez-pagnation-server>
-  <div id='blogs'></div>
+  <ez-pagnation resource='blogs'></ez-pagnation>
 </body>
 <script>
-  var server = $('ez-pagnation-server#ezdz')[0];
-  var blogs = $('div#blogs')[0];
-  server.index('blogs',5).then(function(results) {
-    for (var i = 0; i < results.length; i++) {
-      var blog = new ez.EzBlogElement;
-      blog.serverId = server.getAttribute('id');
-      blog.model = results[i];
-      blogs.appendChild(blog);
-    }
-  })
-  /* TODO blog navigation (ajax history, pagnation, search, sections)*/
+  /* TODO blog navigation (ajax history, search, sections)*/
 </script>
 </html>
