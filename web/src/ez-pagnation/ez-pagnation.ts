@@ -31,6 +31,7 @@ module ez {
       this._resource = this._element.getAttribute('resource');
       this._resultsPerPage =
           parseInt(this._element.getAttribute('resultsPerPage')) || 5;
+      this._currentPage = 1;
 
       // Template
       this._element.appendChild(
@@ -45,7 +46,7 @@ module ez {
       if (this._resource == null) {
         console.warn('Warning! ez-pagnation initialized with no resource!');
       } else {
-        this._render(1);
+        this.gotoPage('1');
       }
     }
 
@@ -65,7 +66,7 @@ module ez {
     set resource(newResource: string) {
       this._element.setAttribute('resource', newResource);
       this._createServer();
-      this._render(1);
+      this.gotoPage('1');
     }
 
     get resultsPerPage(): number {
@@ -73,7 +74,6 @@ module ez {
     }
 
     public gotoPage(page: string) {
-      page = unescape(page);
       if (page == '&gt;&gt;')
         this.currentPage = this._pagnationServerElement.numOfPages;
       else if (page == '&lt;&lt;')
@@ -99,10 +99,13 @@ module ez {
           newEl.serverId = this._pagnationServerElement.getAttribute('id');
           this._pageContentElement.appendChild(newEl);
         }
+
+        // scroll to top;
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
         this._renderPageBar(page);
       } else {
         this._pagnationServerElement.fetch().then((result) => {
-          if (result) this._render(1);
+          if (result) this.gotoPage('1');
         });
       }
     }
@@ -111,7 +114,7 @@ module ez {
       this._pageBarElement.innerHTML = '';
 
       var numOfPages = this._pagnationServerElement.numOfPages;
-      var btnStrings = []
+      var btnStrings = [];
       if (page > 1)                         // atleast 1 page before
         btnStrings.push('<');
       if (page > 3) {                       // atleast 3 pages before
@@ -129,9 +132,19 @@ module ez {
       if ((numOfPages - page) >= 1)          // atleast 1 page after
         btnStrings.push('>');
 
+      // fix array so current page always in middle
+      var left = btnStrings.indexOf(page.toString());
+      var right = btnStrings.length - left - 1;
+      var diff = right - left;
+      if (diff < 0) {
+        btnStrings = btnStrings.concat(Array(-1 * diff).join('0').split('0'));
+      } else {
+        btnStrings = Array(diff).join('0').split('0').concat(btnStrings);
+      }
+
       for (var i = 0; i < btnStrings.length; i++) {
         var goToEl = document.createElement('div');
-        if (btnStrings[i] == '...') {
+        if (btnStrings[i] == '...' || btnStrings[i] == '') {
           goToEl.setAttribute('name', 'hold');
         } else if (btnStrings[i] == page.toString()) {
           goToEl.setAttribute('name', 'current');
