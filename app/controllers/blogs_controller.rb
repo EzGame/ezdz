@@ -2,12 +2,18 @@ class BlogsController < ApplicationController
   before_action :set_blog, only: [:show, :edit, :update, :destroy]
 
   def index
-    # TODO pagnation
-    render json: Blog.order('created_at desc').map(&:to_preview_hash).to_json
+    render json:
+        Blog.order('created_at desc').
+            includes(:photos).
+            map(&:to_preview_hash).
+            to_json
   end
 
   def show
-    render json: Blog.find(params[:id]).to_full_hash.to_json
+    render json:
+        Blog.find(params[:id]).
+            to_full_hash.
+            to_json
   end
 
   def search

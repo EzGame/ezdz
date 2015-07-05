@@ -33,5 +33,6 @@ module ez {
   }
 
   /* Export Component */
-  export var XComponentXElement = ez.registerElement('XcomponentX', HTMLElement, XComponentX);
+  if (!ez.registered('XcomponentX'))
+    export var XComponentXElement = ez.registerElement('XcomponentX', HTMLElement, XComponentX);
 }

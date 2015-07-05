@@ -33,25 +33,21 @@ module ez {
   }
 
   export function registerElement(elName: string, elBase: Function,
-      el: Function, elExtend?: string): void {
-    try {
-      var options: webcomponents.CustomElementInit = {
-        prototype: Object.create(elBase.prototype, getFullPrototype(el.prototype))
-      };
-      if (elExtend)
-        options.extends = elExtend;
-      return document.registerElement(elName, options);
-    } catch (err) {
-      // Return with warning if the element is already registered
-      // NOTE: This will only happen on test/dev environment,
-      // prod will dedup the javascript calls
-      if (err.message.match('A type with that name is already registered.')) {
-        console.warn(err.message);
-        return null;
-      } else {
-        throw (err);
-      }
+    el: Function, elExtend?: string): void {
+    var options: webcomponents.CustomElementInit = {
+      prototype: Object.create(elBase.prototype, getFullPrototype(el.prototype))
+    };
+    if (elExtend)
+      options.extends = elExtend;
+    return document.registerElement(elName, options);
+  }
+
+  export function registered(elName: string): boolean {
+    switch (document.createElement(elName).constructor) {
+      case HTMLElement: return false;
+      case HTMLUnknownElement: return undefined;
     }
+    return true;
   }
 
   export function createDocumentFragment(html: string): DocumentFragment {

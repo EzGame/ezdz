@@ -118,8 +118,9 @@ module ez {
     /* Component public interfaces in here */
     serverId: number,
     model: any
-  }
+  };
 
   /* Export Component */
-  export var EzBlogElement = ez.registerElement('ez-blog', HTMLElement, EzBlog);
+  if (!ez.registered('ez-blog'))
+    export var EzBlogElement = ez.registerElement('ez-blog', HTMLElement, EzBlog);
 }

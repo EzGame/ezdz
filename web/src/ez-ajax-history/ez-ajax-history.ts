@@ -41,5 +41,6 @@ module ez {
   }
 
   /* Export Component */
-  export var EzAjaxHistoryElement = ez.registerElement('ez-ajax-history', HTMLElement, EzAjaxHistory);
+  if (!ez.registered('ez-ajax-history'))
+    export var EzAjaxHistoryElement = ez.registerElement('ez-ajax-history', HTMLElement, EzAjaxHistory);
 }

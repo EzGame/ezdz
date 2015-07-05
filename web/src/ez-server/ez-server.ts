@@ -68,9 +68,9 @@ module ez {
       params?: any) :string {
       /* TODO: Auto params appending */
       if (action == 'show') {
-        return '/' + resource + '/' + params.id;
+        return '/api/' + resource + '/' + params.id;
       } else if (action == 'index') {
-        return '/' + resource;
+        return '/api/' + resource;
       }
     }
   }
@@ -81,5 +81,6 @@ module ez {
   }
 
   /* Export Component */
-  export var EzServerElement = ez.registerElement('ez-server', HTMLElement, EzServer);
+  if (!ez.registered('ez-server'))
+    export var EzServerElement = ez.registerElement('ez-server', HTMLElement, EzServer);
 }

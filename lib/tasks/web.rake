@@ -2,6 +2,7 @@ namespace :web do
   # TODO: set target(dst) path
   # TODO: use absolute paths
   # TODO: set module name
+  # TODO: hiearchial make
 
   DESTINATION = "public/web/lib"
   def dst( src, type )
@@ -74,7 +75,7 @@ namespace :web do
     sources[:typescript].each do |src|
       next if src.match /d\.ts$/
       out = dst(src, '.ts')
-      next unless compile?( src, out )
+      # next unless compile?( src, out )
       response = system("tsc -t ES5 #{src} -out #{out}")
 
       return unless response
