@@ -27,7 +27,6 @@ namespace :web do
     rescue
       ctime = 0
     end
-
     return (mtime > ctime) ? true : false
   end
 
@@ -114,13 +113,13 @@ namespace :web do
     end if sources[:html].present?
 
     # copy over vendors
-    if compile?( "#{Rails.root}/web/vendors/", "#{Rails.root}/public/web" )
+    if compile?( "#{Rails.root}/web/vendors/", "#{Rails.root}/public/web/vendors" )
       puts "\e[1;33m** Copying over vendors\e[0;31m"
       `cp -r #{Rails.root}/web/vendors #{Rails.root}/public/web/`
     end
 
     # copy over tests
-    if compile?( "#{Rails.root}/web/tests", "#{Rails.root}/public/web" )
+    if compile?( "#{Rails.root}/web/tests", "#{Rails.root}/public/web/tests" )
       puts "\e[1;33m** Copying over tests\e[0;31m"
       `cp -r #{Rails.root}/web/tests #{Rails.root}/public/web/`
     end
