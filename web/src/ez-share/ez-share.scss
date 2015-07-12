@@ -1,0 +1,38 @@
+/* Place component css styles in here */
+ez-share {
+  $facebook-color: #3B5998;
+  $twitter-color: #00ACED;
+  $googleplus-color: #D14836;
+  $permalink-color: #DAA520;
+
+  div {
+    cursor: pointer;
+    display: inline-block;
+    height: 32px;
+    margin: 0 8px;
+    width: 32px;
+
+    svg {
+      fill: black;
+      display: block;
+      margin: auto;
+      transition: 0.5s;
+    }
+  }
+
+  div[name=facebook]:hover svg {
+    fill: $facebook-color;
+  }
+
+  div[name=twitter]:hover svg {
+    fill: $twitter-color;
+  }
+
+  div[name=googleplus]:hover svg {
+    fill: $googleplus-color;
+  }
+
+  div[name=permalink]:hover svg {
+    fill: $permalink-color;
+  }
+}
