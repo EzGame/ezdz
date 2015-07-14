@@ -1,7 +1,14 @@
 Rails.application.routes.draw do
-  # Home/Root
-  root 'home#index'
+  # High level entry routes
+  root to: 'home#home'
+  scope module: 'home' do
+    get 'home'
+    get 'blogs'
+    get 'albums'
+    get 'photos'
+  end
 
+  # API routes for json data
   scope '/api' do
     resources :blogs, only: [:index, :show] do
       get 'search', on: :collection

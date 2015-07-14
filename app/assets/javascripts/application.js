@@ -1,7 +1,6 @@
 // Application.js require tree
 //= require jquery
-//= require turbolinks
-//= require utility
+//= require velocity
 
 $(document).on('ready', function() {
   var $frame = $('#app-frame');
@@ -20,7 +19,6 @@ $(document).on('ready', function() {
       $topbar.css('background','rgba(0,0,0,1)')
     }
   };
-  $frame[0].contentWindow.onscroll = frameScrollHandler();
 
   // Menu block
   $menu.on('click', function() {
@@ -37,11 +35,6 @@ $(document).on('ready', function() {
 
   $('#app-menu li').on('click', function() {
     function switchPage() {
-      if ($frame.attr('src') == '/home')
-        $frame.attr('src','/gallery');
-      else
-        $frame.attr('src','/home');
-      $frame[0].contentWindow.onscroll = frameScrollHandler();
     };
 
     $('#app-body')
@@ -74,3 +67,19 @@ $(document).on('ready', function() {
         delay: 1500 }
   );
 });
+
+function fullScreen(element) {
+  var requestMethod = element.requestFullScreen ||
+      element.webkitRequestFullScreen ||
+      element.mozRequestFullScreen ||
+      element.msRequestFullscreen;
+
+  if (requestMethod) {
+    requestMethod.call(element);
+  } else if (typeof window.ActiveXObject !== "undefined") {
+    var wscript = new ActiveXObject("WScript.Shell");
+    if (wscript !== null) {
+      wscript.SendKeys("{F11}");
+    }
+  }
+}

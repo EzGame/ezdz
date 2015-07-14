@@ -47,7 +47,7 @@ namespace :web do
     file = File.open("temp","w+")
     file.write(sources[:scss].map{ |i| "@import \"#{i}\";" }.join("\n"))
     file.seek(0);
-    return unless system("scss --sourcemap=none --style compressed #{file.path} public/web/component.css")
+    return unless system("scss --sourcemap=none --style compressed #{file.path} public/web/component.min.css")
     File.delete(file.path);
 
     puts "\e[1;33m** Copying over vendors\e[0;31m"
