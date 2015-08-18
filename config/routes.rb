@@ -10,18 +10,12 @@ Rails.application.routes.draw do
 
   # API routes for json data
   scope '/api' do
-    resources :blogs, only: [:index, :show] do
-      get 'search', on: :collection
-      resources :photos, only: :index
-    end
-    resources :albums, only: [:index, :show] do
-      get 'search', on: :collection
-      resources :photos, only: :index
-    end
-    resources :photos, only: [:index, :show]
+    get 'search', to: 'api#search'
+    get 'index', to: 'api#index'
+    get 'show', to: 'api#show'
   end
 
-  # Logged in to do edits
+  # Admin routes
   scope '/admin' do
     resources :blogs
     resources :albums

@@ -19,6 +19,7 @@ gem 'uglifier', '2.7.1'     # Uglifier for production assets
 
 group :development, :test do
   gem 'better_errors'       # Way better exception screen for debugging
+  gem 'byebug'              # Server debugger
   gem 'spring'              # Spring speeds up development
   gem 'rspec'               # Specs
   gem 'awesome_print'       # Get some color into the console

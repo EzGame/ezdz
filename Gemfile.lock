@@ -43,6 +43,8 @@ GEM
       erubis (>= 2.6.6)
       rack (>= 0.9.0)
     builder (3.2.2)
+    byebug (5.0.0)
+      columnize (= 0.9.0)
     capistrano (2.12.0)
       highline
       net-scp (>= 1.0.0)
@@ -57,6 +59,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.9.1.1)
+    columnize (0.9.0)
     diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.0.2)
@@ -174,6 +177,7 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   better_errors
+  byebug
   capistrano (~> 2.12.0)
   hashids (= 1.0.2)
   httparty (= 0.13.3)
