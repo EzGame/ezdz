@@ -1,5 +1,5 @@
 class Story < Post
-  validates :_meta_data_validity
+  validate :_meta_data_validity
 
   private
 

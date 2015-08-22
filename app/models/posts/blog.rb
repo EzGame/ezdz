@@ -1,5 +1,5 @@
 class Blog < Post
-
+  validate :_meta_data_validity
   private
 
     def _meta_data_validity

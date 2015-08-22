@@ -18,9 +18,11 @@ class ApiController < ActionController::Base
     query = _get_param(:q, 'String', 'all')
     limit = _get_param(:limit, 'Fixnum', 10)
     offset = _get_param(:offset, 'Fixnum', 0)
-    sort = _get_param(:sort, 'String', 'date')
+    # XXX ezdz - sql injection warning!
+    sort = _get_param(:sort, 'String', 'created_at desc')
 
-    results = [] # search
+    results = (query == 'all') ? Post.all : Post.search(query)
+    results = results.limit(limit).order(sort).offset(offset)
     render json: _respond_with(results)
   end
 
@@ -32,7 +34,7 @@ class ApiController < ActionController::Base
     limit = _get_param(:limit, 'Fixnum', 10)
     offset = _get_param(:offset, 'Fixnum', 0)
 
-    results = [] # index
+    results = Post.all.limit(limit).order('created_at desc').offset(offset)
     render json: _respond_with(results)
   end
 
@@ -42,7 +44,7 @@ class ApiController < ActionController::Base
   def show
     id = _get_param(:id, 'String')
 
-    result = "" # show
+    result = Post.find_by_hashid(id).to_json
     render json: _respond_with(result)
   end
 
