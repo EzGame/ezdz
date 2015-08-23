@@ -1,8 +1,10 @@
 class Blog < Post
   validate :_meta_data_validity
-  private
 
+  private
     def _meta_data_validity
-      true
+      if self.meta[:html].blank?
+        errors.add(:html, "Cannot be blank!")
+      end
     end
 end

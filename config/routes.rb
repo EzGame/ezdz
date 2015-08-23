@@ -17,8 +17,11 @@ Rails.application.routes.draw do
 
   # Admin routes
   scope '/admin' do
-    resources :blogs
-    resources :albums
-    resources :photos
+    get '/', to: 'posts#index'
+    #resources :photos
+    resources :blogs, controller: "posts", type: "Blog"
+    resources :albums, controller: "posts", type: "Album"
+    resources :decks, controller: "posts", type: "Deck"
+    resources :narratives, controller: "posts", type: "Narrative"
   end
 end

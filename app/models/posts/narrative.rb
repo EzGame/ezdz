@@ -1,4 +1,4 @@
-class Story < Post
+class Narrative < Post
   validate :_meta_data_validity
 
   private

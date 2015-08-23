@@ -1,0 +1,34 @@
+<html>
+  <head>
+    <script src="/web/vendors/jquery.min.js"></script>
+    <style>
+      #ace {
+        width: 500px;
+        height: 700px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>New <%= params[:type] -%></h1>
+    <label>Title:</label>
+    <input type="text" placeholder="title">
+    <label>Body:</label>
+    <div id="ace"></div>
+    <label>Photos</label>
+    <div>Hi</div>
+    <label>Tags:</label>
+    <input type="text">
+    <iframe id="view"></iframe>
+  </body>
+  <script src="/web/vendors/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+  <script>
+    var editor = ace.edit("ace");
+    var view = $('#view')
+    editor.setTheme("ace/theme/solarized_dark");
+    editor.getSession().setMode("ace/mode/html");
+    editor.getSession().on('change', function () {
+      view.contents().find('body').html(editor.getSession().getValue());
+    });
+  </script>
+</html>
+
