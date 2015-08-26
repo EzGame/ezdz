@@ -1,26 +1,91 @@
 <html>
   <head>
     <script src="/web/vendors/jquery.min.js"></script>
+    <script src="/web/vendors/ace/ace.js"></script>
+    <script src="/web/vendors/jquery.ui.widget.js"></script>
+    <script src="/web/vendors/jquery.iframe-transport.js"></script>
+    <script src="/web/vendors/jquery.fileupload.js"></script>
     <style>
+      html, body {
+        font-family: 'Josefin Sans', sans-serif !important;
+      }
+
       #ace {
-        width: 500px;
-        height: 700px;
+        width: 800px;
+        height: 600px;
+      }
+
+      input {
+        border: none;
+        background: #01313F;
+        color: #CDEAF5;
+        height: 30px;
+        font-size: 20px;
+        font-weight: 300;
+        line-height: 30px;
+        margin: 10px 0;
+        padding: 0 10px;
+      }
+
+      input[name=title],
+      input[name=tags] {
+        width: 800px;
+      }
+
+      input[name=submit],
+      input[name=button] {
+      }
+
+      /* This probably should be redraggable*/
+      iframe {
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        border: 5px solid #01313F;
+        width: 400px;
+        height: 400px;
+        background: white;
       }
     </style>
+    <script type="text/javascript">
+      WebFontConfig = {
+        google: {
+          families: [
+            'Josefin+Sans:300,400,600:latin',
+            'Ubuntu+Mono::latin',
+            'Open+Sans:300italic,400italic,400,300:latin'
+          ]
+        }
+      };
+      (function() {
+        var wf = document.createElement('script');
+        wf.src = ('https:' == document.location.protocol ? 'https' : 'http') +
+          '://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+        wf.type = 'text/javascript';
+        wf.async = 'true';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(wf, s);
+      })(); </script>
   </head>
   <body>
-    <h1>New <%= params[:type] -%></h1>
-    <label>Title:</label>
-    <input type="text" placeholder="title">
-    <label>Body:</label>
-    <div id="ace"></div>
-    <label>Photos</label>
-    <div>Hi</div>
-    <label>Tags:</label>
-    <input type="text">
+  <div>
+  </div>
+
+  <div>
+  </div>
+    <!-- Blog base web component url -->
     <iframe id="view"></iframe>
+    <%= form_for(@post, url: '/admin/blogs') do |f|-%>
+      <input type="text" name="title" placeholder="Title">
+      <div id="ace"></div>
+      <input type="text" name="tags" placeholder="Tags (comma separated)">
+      <br>
+      <%= f.submit -%>
+      <input id="cover" name="cover" type="number" hidden>
+    <% end %>
+    <input id="upload" type="file" name="files[]" data-url="/admin/photos">
   </body>
-  <script src="/web/vendors/ace/ace.js" type="text/javascript" charset="utf-8"></script>
+
   <script>
     var editor = ace.edit("ace");
     var view = $('#view')
@@ -28,6 +93,14 @@
     editor.getSession().setMode("ace/mode/html");
     editor.getSession().on('change', function () {
       view.contents().find('body').html(editor.getSession().getValue());
+    });
+
+    $('#upload').fileupload({
+      dataType: 'json',
+      done: function (e, data) {
+        debugger;
+        $('#cover').val(data.result.id);
+      }
     });
   </script>
 </html>

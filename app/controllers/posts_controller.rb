@@ -17,6 +17,7 @@ class PostsController < AuthenticationController
   end
 
   def create
+    debugger
     @post = _post_type.new(_post_params)
 
     respond_to do |format|

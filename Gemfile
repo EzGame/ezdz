@@ -3,8 +3,10 @@ source 'https://rubygems.org'
 ### Back End Gems ###
 gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
 gem 'jbuilder', '2.0'       # https://github.com/rails/jbuilder
+gem 'imgurapi'              # Imgur as image host
 gem 'mysql2'                # Use mysql as database
 gem 'rack', '~> 1.6.4'
+
 
 ### Middleware Gems ###
 gem 'rails', '4.2.0'        # Bundle edge Rails instead

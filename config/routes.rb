@@ -18,10 +18,10 @@ Rails.application.routes.draw do
   # Admin routes
   scope '/admin' do
     get '/', to: 'posts#index'
-    #resources :photos
-    resources :blogs, controller: "posts", type: "Blog"
-    resources :albums, controller: "posts", type: "Album"
-    resources :decks, controller: "posts", type: "Deck"
-    resources :narratives, controller: "posts", type: "Narrative"
+    resources :photos
+    resources :blogs, controller: "posts", type: "Blog", except: :index
+    resources :albums, controller: "posts", type: "Album", except: :index
+    resources :decks, controller: "posts", type: "Deck", except: :index
+    resources :narratives, controller: "posts", type: "Narrative", except: :index
   end
 end
