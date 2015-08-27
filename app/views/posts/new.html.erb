@@ -11,11 +11,12 @@
       }
 
       #ace {
-        width: 800px;
         height: 600px;
+        width: 800px;
+        margin-top: 10px;
       }
 
-      input {
+      input, #upload-cover {
         border: none;
         background: #01313F;
         color: #CDEAF5;
@@ -23,7 +24,8 @@
         font-size: 20px;
         font-weight: 300;
         line-height: 30px;
-        margin: 10px 0;
+        margin-top: 10px;
+        overflow: hidden;
         padding: 0 10px;
       }
 
@@ -34,6 +36,27 @@
 
       input[name=submit],
       input[name=button] {
+      }
+
+      #upload-cover-preview {
+        display: block
+      }
+
+      #upload-cover {
+        position: relative;
+        width: 300px;
+      }
+
+      #upload-cover input {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin: 0;
+        padding: 0;
+        font-size: 20px;
+        cursor: pointer;
+        opacity: 0;
+        filter: alpha(opacity=0);
       }
 
       /* This probably should be redraggable*/
@@ -79,11 +102,19 @@
       <input type="text" name="title" placeholder="Title">
       <div id="ace"></div>
       <input type="text" name="tags" placeholder="Tags (comma separated)">
+      <input id="cover" name="cover" type="number" hidden>
+      <input id="body" name="body" type="text" hidden>
       <br>
       <%= f.submit -%>
-      <input id="cover" name="cover" type="number" hidden>
     <% end %>
-    <input id="upload" type="file" name="files[]" data-url="/admin/photos">
+
+    <img id="upload-cover-preview">
+
+    <div id="upload-cover">
+      <span>Upload</span>
+      <input id="upload" type="file" name="files[]" data-url="/admin/photos">
+    </div>
+
   </body>
 
   <script>
@@ -97,10 +128,22 @@
 
     $('#upload').fileupload({
       dataType: 'json',
+      submit: function (e, data) {
+        $('#upload-cover span').text("Uploading...")
+        $('#upload').prop('disabled', true)
+      },
       done: function (e, data) {
-        debugger;
         $('#cover').val(data.result.id);
+        $('#upload-cover span').text("Done");
+        $('#upload-cover-preview').attr('src',data.result.url);
       }
+    });
+
+    $('form').submit(function(e) {
+       e.preventDefault();
+       $('#body').val(editor.getSession().getValue());
+       this.submit();
+       return false; //is superfluous, but I put it here as a fallback
     });
   </script>
 </html>

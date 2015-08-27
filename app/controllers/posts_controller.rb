@@ -17,8 +17,7 @@ class PostsController < AuthenticationController
   end
 
   def create
-    debugger
-    @post = _post_type.new(_post_params)
+    @post = _post_type.new_with_params(params)
 
     respond_to do |format|
       if @post.save
@@ -55,11 +54,6 @@ class PostsController < AuthenticationController
     # Use callbacks to share common setup or constraints between actions.
     def _set_post
       @post = Post.find(params[:id])
-    end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def _post_params
-      params[:post]
     end
 
     def _post_types

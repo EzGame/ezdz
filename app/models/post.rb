@@ -55,13 +55,18 @@ class Post < ActiveRecord::Base
     self.tags.map(&:name).join(", ")
   end
 
-  private
-
-    def _hasher
-      Hashids.new(SALT, LENG)
+  protected
+    def self._hash_id
+      # REALLY BAD HACK
+      self._hasher.encode((self.maximum(:id) || 0) + 1)
     end
 
+  private
     def _type_validity
       true
+    end
+
+    def self._hasher
+      Hashids.new(SALT, LENG)
     end
 end
