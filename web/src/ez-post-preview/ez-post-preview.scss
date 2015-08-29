@@ -1,0 +1,91 @@
+ez-post-preview {
+
+  @mixin margin {
+
+  }
+
+  @mixin font($type, $size) {
+    color: white;
+    font-size: $size;
+    @if $type == header {
+      font-family: 'Josefin Sans', sans-serif;
+      margin: 0;
+      text-align: center;
+    }
+    @else if $type == body {
+      font-family: 'Open Sans', sans-serif;
+    }
+    @else if $type == mono {
+      font-family: 'Ubuntu Mono', monospace;
+    }
+  }
+
+  display: inline-block;
+  overflow: hidden;
+
+  // test (2:1 looks good)
+
+  [name=container] {
+    display: block;
+    height: inherit;
+    position: relative;
+    width: inherit;
+
+    [name=anchor] {
+      background: black;
+      display: block;
+      height: inherit;
+      width: inherit;
+
+      [name=cover] {
+        display: block;
+        z-index: 1;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        min-width: 100%;
+        -webkit-transform: translateY(-50%) translateX(-50%);
+                transform: translateY(-50%) translateX(-50%);
+      }
+
+      [name=title] {
+        @include font(header, 36px);
+        display: none;
+        left: 0px;
+        margin: auto;
+        position: absolute;
+        right: 0px;
+        top: 50%;
+        z-index: 3;
+      }
+
+      [name=date] {
+        @include font(header, 24px);
+        left: 5px;
+        position: absolute;
+        top: 5px;
+        z-index: 3;
+      }
+
+      [name=tags] {
+        bottom: 5px;
+        position: absolute;
+        right: 5px;
+        z-index: 3;
+
+        [name=tag] {
+          @include font(header, 24px);
+          color: white;
+          display: inline-block;
+          padding: 0 5px;
+          margin: 0 5px;
+          text-decoration: none;
+
+          &:hover {
+            background: black;
+          }
+        }
+      }
+    } /* [name=anchor] */
+  } /* [name=container] */
+}

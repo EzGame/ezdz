@@ -74,7 +74,7 @@ class Post < ActiveRecord::Base
   end
 
   def all_tags
-    self.tags.map(&:name).join(", ")
+    self.tags.map(&:name)
   end
 
   protected

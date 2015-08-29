@@ -55,6 +55,6 @@ module ez {
   }
 
   export function getChild(parent, selector): any {
-    return $(parent).find(selector)[0];
+    return $(parent).find(selector);
   }
 }
