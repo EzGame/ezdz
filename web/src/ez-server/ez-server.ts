@@ -2,6 +2,13 @@
 /// <reference path="../ez.ts"/>
 /* TODO: caching */
 /* TODO: ajax backing */
+
+interface ApiParams {
+  limit?: number,
+  offset?: number,
+  sort?: string
+}
+
 module ez {
   export class EzServer {
     constructor(private _element: EzServerElement) {}
@@ -31,56 +38,80 @@ module ez {
       return this._element.getAttribute('id');
     }
 
-    public find(resource: string, id: number) :Promise<any> {
+    public search(q: string, options?: ApiParams): Promise<any> {
+      options = (options === undefined) ? {} : options;
+      debugger
+      options['q'] = q;
+
       return new Promise<any>((resolve, reject) => {
         $.ajax({
-          url: this._constructUrl(resource, 'show', {id: id}),
-          success: function(response) {
-            resolve(response);
-          },
-          error: function(error) {
-            reject(error);
-          }
-        });
-      });
+          url: this._constructUrl('search', options),
+          success: function(r) { resolve(r); },
+          error: function(e) { reject(e); }
+        })
+      })
     }
 
-    public index(resource: string): Promise<any> {
+    public index(options?: ApiParams): Promise<any> {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
-          url: this._constructUrl(resource, 'index'),
-          success: function(response) {
-            resolve(response);
-          },
-          error: function(error) {
-            reject(error);
-          }
-        });
-      });
+          url: this._constructUrl('index', options),
+          success: function(r) { resolve(r); },
+          error: function(e) { reject(e); }
+        })
+      })
     }
 
-    public search() :Promise<any> {
-      // TODO
-      return undefined
+    public show(id: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        $.ajax({
+          url: this._constructUrl('show', id),
+          success: function(r) { resolve(r); },
+          error: function(e) { reject(e); }
+        })
+      })
     }
 
-    private _constructUrl(resource: string, action: string,
-      params?: any) :string {
-      /* TODO: Auto params appending */
+    private _constructUrl(action: string, params: any) :string {
+      var base_uri = '/api/' + action + '?'
       if (action == 'show') {
-        return '/api/' + resource + '/' + params.id;
+        return base_uri + params;
       } else if (action == 'index') {
-        return '/api/' + resource;
+        return base_uri + this._serialize(params);
+      } else if (action == 'search') {
+        return base_uri + this._serialize(params);
+      } else {
+        return '/'
       }
+    }
+
+    private _serialize(params: any) {
+      var str = [];
+      for (var p in params)
+        if (params.hasOwnProperty(p)) {
+          str.push(encodeURIComponent(p) + "=" + encodeURIComponent(params[p]));
+        }
+      return str.join("&");
     }
   }
 
   export interface EzServerElement extends HTMLElement {
-    find(resource: string, id: number): Promise<any>,
-    index(resource: string): Promise<any>
+    search(
+      q: string,
+      options?: ApiParams
+    ): Promise<any>,
+
+    index(
+      options?: ApiParams
+    ): Promise<any>
+
+    show(
+      id: string
+    ): Promise<any>
   }
 
   /* Export Component */
   if (!ez.registered('ez-server'))
-    export var EzServerElement = ez.registerElement('ez-server', HTMLElement, EzServer);
+    export var EzServerElement = ez.registerElement(
+      'ez-server', HTMLElement, EzServer);
 }

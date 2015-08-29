@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  layout :_layout
+
   def home
   end
 
@@ -9,5 +11,10 @@ class HomeController < ApplicationController
   end
 
   def photos
+  end
+
+  private
+  def _layout
+    false
   end
 end

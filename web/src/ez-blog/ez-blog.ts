@@ -82,13 +82,13 @@ module ez {
         }
       }
 
-      if (this._model.preview) {
-        var link = getChild(this._element, '[name=read]');
-        link.onclick = () :void => {
-          this._server.find('blogs', this._model.id).
-              then((result) => { this.model = result; })
-        };
-      }
+      // if (this._model.preview) {
+      //   var link = getChild(this._element, '[name=read]');
+      //   link.onclick = () :void => {
+      //     this._server.find('blogs', this._model.id).
+      //         then((result) => { this.model = result; })
+      //   };
+      // }
     }
 
     get model(): any {
