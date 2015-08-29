@@ -23,7 +23,7 @@ class ApiController < ActionController::Base
 
     results = (query == 'all') ? Post.all : Post.search(query)
     results = results.limit(limit).order(sort).offset(offset)
-    render json: _respond_with(results)
+    render json: _respond_with(results.preview)
   end
 
 
@@ -35,7 +35,7 @@ class ApiController < ActionController::Base
     offset = _get_param(:offset, 'Fixnum', 0)
 
     results = Post.all.limit(limit).order('created_at desc').offset(offset)
-    render json: _respond_with(results)
+    render json: _respond_with(results.preview)
   end
 
 
@@ -44,8 +44,8 @@ class ApiController < ActionController::Base
   def show
     id = _get_param(:id, 'String')
 
-    result = Post.find_by_hashid(id).to_json
-    render json: _respond_with(result)
+    result = Post.find_by_hashid(id)
+    render json: _respond_with(result.full)
   end
 
 

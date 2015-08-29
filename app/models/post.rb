@@ -5,7 +5,6 @@ class Post < ActiveRecord::Base
   validates_presence_of :type
   validates_presence_of :meta
   validates :hashid, presence: true, uniqueness: true
-  validate :_type_validity
 
   ## Relations ##
   has_one :photo, as: :exhibit
@@ -16,6 +15,33 @@ class Post < ActiveRecord::Base
   serialize :meta, Hash
   SALT = "19910826" # To remove from repo and use ENV['SALT']
   LENG = 6 # Same thing
+
+  def self.preview
+    includes(:photo, :tags).map do |post|
+      {
+        id: post.hashid,
+        title: post.title,
+        type: post.type,
+        date: post.created_at.to_date,
+        cover: post.photo.url,
+        tags: post.all_tags
+      }
+    end
+  end
+
+  def self.full
+    includes(:photo, :tags).map do |post|
+      {
+        id: post.hashid,
+        title: post.title,
+        type: post.type,
+        date: post.created_at.to_date,
+        cover: post.photo.url,
+        tags: post.all_tags,
+        meta: post.meta
+      }
+    end
+  end
 
   def self.find_by_tags( name )
     Post.includes(:tags).where("tags.name" => name).limit(1)
@@ -38,11 +64,7 @@ class Post < ActiveRecord::Base
       where("tags.name = ? OR
              posts.hashid = ? OR
              posts.type = ? OR
-             (posts.title LIKE '%#{query}%')",query, query, query)
-  end
-
-  def to_json
-    {}
+             (posts.title LIKE '%#{query}%')", query, query, query)
   end
 
   def all_tags=(names)
@@ -62,10 +84,6 @@ class Post < ActiveRecord::Base
     end
 
   private
-    def _type_validity
-      true
-    end
-
     def self._hasher
       Hashids.new(SALT, LENG)
     end
