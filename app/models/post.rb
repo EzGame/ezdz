@@ -16,6 +16,9 @@ class Post < ActiveRecord::Base
   SALT = "19910826" # To remove from repo and use ENV['SALT']
   LENG = 6 # Same thing
 
+  # TODO: Default images if cover is not used
+  # TODO: Popular posts (click or activity GA?)
+
   def self.preview
     includes(:photo, :tags).map do |post|
       {

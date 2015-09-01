@@ -1,1 +1,56 @@
-HOME APP
+<html>
+  <head>
+    <%= render template: 'templates/_meta' -%>
+    <script src="web/vendors/webcomponents-lite.min.js"></script>
+    <script src="web/vendors/handlebars.runtime.min.js"></script>
+    <script src="web/vendors/masonry.pkgd.min.js"></script>
+    <script src="web/vendors/imagesloaded.pkgd.min.js"></script>
+    <script src="web/vendors/jquery.min.js"></script>
+    <link rel="import" href="web/lib/ez-server.html">
+    <link rel="import" href="web/lib/ez-post-preview.html">
+    <style>
+      html, body {
+        padding: 0;
+        margin: 0;
+      }
+
+      #container {
+        display: block;
+        margin: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Home</h1>
+    <ez-server></ez-server>
+    <div id="container"></div>
+  </body>
+  <script>
+    var server = document.querySelector("ez-server");
+    var container = document.querySelector("#container");
+    var rowHeight = $('#container').innerWidth() / 3;
+    var masonry;
+
+    server.index().then(function(response) {
+      var data = response.data
+      for (var i = 0; i < 10; i++) {
+        var post = document.createElement("ez-post-preview");
+        container.appendChild(post);
+        post.load(data[0]) // load data
+        post.rowHeight = rowHeight;   // grid size
+      }
+
+      imagesLoaded( container, function() {
+        masonry = new Masonry( container, {
+          itemSelector: 'ez-post-preview',
+          rowHeight: rowHeight / 2,
+          columnWidth: rowHeight / 2
+        });
+      });
+    });
+
+    $(window).resize(function() {
+      $('ez-post-preview')
+    });
+  </script>
+</html>
