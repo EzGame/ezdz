@@ -1,16 +1,13 @@
 class HomeController < ApplicationController
   layout :_layout
 
-  def home
+  def welcome
   end
 
-  def blogs
+  def show
   end
 
-  def albums
-  end
-
-  def photos
+  def about
   end
 
   private

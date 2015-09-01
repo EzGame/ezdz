@@ -1,12 +1,8 @@
 Rails.application.routes.draw do
   # High level entry routes
-  root to: 'home#home'
-  scope module: 'home' do
-    get 'home'
-    get 'blogs'
-    get 'albums'
-    get 'photos'
-  end
+  root to: 'home#welcome'
+  get '/p/:hashid', to: 'home#show'
+  get '/about', to: 'home#about'
 
   # API routes for json data
   scope '/api' do
