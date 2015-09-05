@@ -71,16 +71,6 @@ module ez {
       return this._element.getAttribute('tags').split(' ');
     }
 
-    set rowHeight(newRowHeight: number) {
-      this._element.setAttribute('rowHeight', newRowHeight.toString());
-      this._resize();
-    }
-
-    get rowHeight(): number {
-      var rowHeight = this._element.getAttribute('rowHeight');
-      return (rowHeight == "") ? undefined : parseInt(rowHeight);
-    }
-
     public load(model: PostPreviewModel): void {
       this.id = model.id;
       this.tags = model.tags;
@@ -103,29 +93,19 @@ module ez {
     }
 
     private _resize() {
-      var height = this._$cover.height();
-      var width = this._$cover.width();
-      var aspect = width / height;
+      var height_ratio = this._$cover.height() / this._$container.height();
+      var width_ratio = this._$cover.width() / this._$container.width();
 
-      if (aspect < 0.75 || aspect > 2.25) {
-        var size = (this.rowHeight / 2).toString();
-        this._element.style.width = size;
-        this._element.style.height = size;
-      } else if (aspect >= 0.75 && aspect < 1.5) {
-        var size = this.rowHeight.toString();
-        this._element.style.width = size;
-        this._element.style.height = size;
-      } else {
-        this._element.style.width = (this.rowHeight * 1.5).toString();
-        this._element.style.height = this.rowHeight.toString();
-      }
+      if (height_ratio > width_ratio && width_ratio > 1)
+        this._$cover.width(this._$container.width());
+      else if (width_ratio > height_ratio && height_ratio > 1)
+        this._$cover.height(this._$container.height());
     }
   }
 
   export interface EzPostPreviewElement extends HTMLElement {
     id: string;
     tags: string;
-    rowHeight: number;
     load(model: PostPreviewModel): void
   }
 

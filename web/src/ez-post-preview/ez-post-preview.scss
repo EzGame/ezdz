@@ -1,9 +1,5 @@
 ez-post-preview {
 
-  @mixin margin {
-
-  }
-
   @mixin font($type, $size) {
     color: white;
     font-size: $size;
@@ -20,13 +16,7 @@ ez-post-preview {
     }
   }
 
-  display: inline-block;
-  overflow: hidden;
-  // test (2:1 looks good)
-
   [name=container] {
-    border: 5px solid white;
-    box-sizing: border-box;
     display: block;
     height: inherit;
     overflow: hidden;
@@ -41,11 +31,12 @@ ez-post-preview {
 
       [name=cover] {
         display: block;
-        z-index: 1;
-        position: absolute;
         left: 50%;
         top: 50%;
+        min-height: 100%;
         min-width: 100%;
+        position: absolute;
+        z-index: 1;
         -webkit-transform: translateY(-50%) translateX(-50%);
                 transform: translateY(-50%) translateX(-50%);
       }

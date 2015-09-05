@@ -1,0 +1,33 @@
+ez-isotope {
+  [name=container] {
+    display: block;
+    height: inherit;
+    overflow: hidden;
+    position: relative;
+    width: inherit;
+
+    [name=controls] {
+
+      div[name=c] {
+        cursor: pointer;
+        display: inline-block;
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        margin: 0 5px;
+        padding: 5px 0 3px 0;
+        position: relative;
+
+        [name=under] {
+          background: black;
+          bottom: 0px;
+          height: 3px;
+          left: 0px;
+          margin: auto;
+          position: absolute;
+          right: 0px;
+          width: 0px;
+        }
+      }
+    }
+  }
+}

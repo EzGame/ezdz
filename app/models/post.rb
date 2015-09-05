@@ -18,6 +18,7 @@ class Post < ActiveRecord::Base
 
   # TODO: Default images if cover is not used
   # TODO: Popular posts (click or activity GA?)
+  # TODO: Resizing and positioning? (HARD)
 
   def self.preview
     includes(:photo, :tags).map do |post|
