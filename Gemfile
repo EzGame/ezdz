@@ -14,17 +14,17 @@ gem 'turbolinks'            # Turbolinks makes links in web app faster
 gem 'httparty', '0.13.3'    # httparty for sending RESTful API requests
 
 ### Front-End Gems ###
-gem 'sass-rails'            # Use SCSS for stylesheets
-gem 'jquery-rails'          # Use jquery as the JavaScript library
-gem 'velocityjs-rails'      # Use velocity js as animation library
-gem 'uglifier', '2.7.1'     # Uglifier for production assets
+group :web do
+  gem 'sass-rails'          # Use SCSS for stylesheets
+  gem 'filewatcher'         # File watching for
+end
 
 group :development, :test do
   gem 'better_errors'       # Way better exception screen for debugging
   gem 'byebug'              # Server debugger
   gem 'spring'              # Spring speeds up development
-  gem 'rspec'               # Specs
   gem 'awesome_print'       # Get some color into the console
+
 end
 
 group :production do

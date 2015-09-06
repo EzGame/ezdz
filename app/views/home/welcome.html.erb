@@ -4,32 +4,57 @@
     <link rel="import" href="web/content.html">
     <style>
       html, body {
-        padding: 0;
+        height: 100%;
         margin: 0;
+        overflow: hidden;
+        padding: 0;
       }
 
       #container {
+        background: #f7f7f7;
+        border-top: 1px solid #ccc;
         display: block;
-        margin: 5px;
+        height: 100%;
+        left: 0px;
+        overflow: scroll;
+        padding: 5px;
+        position: relative;
+        right: 0px;
+      }
+
+      ez-isotope {
+        height: 27px;
+        width: 700px;
+        margin: 63px auto 0 auto;
+      }
+
+      ez-logo {
+        left: 10px;
+        position: fixed;
+        top: 5px;
       }
 
       ez-post-preview {
-        width: 100%;
+        width: 700px;
         height: 300px;
+        margin: 0 auto 10px auto;
       }
     </style>
   </head>
   <body>
-    <h1>Home</h1>
     <ez-server></ez-server>
+    <ez-isotope target='#container' selector='type'></ez-isotope>
+    <ez-logo></ez-logo>
     <div id="container"></div>
   </body>
   <script>
     var server = document.querySelector("ez-server");
+    var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
 
     server.index().then(function(response) {
       var data = response.data
+
       for (var i = 0; i < 10; i++) {
         var post = document.createElement("ez-post-preview");
         container.appendChild(post);
@@ -37,5 +62,7 @@
         post.load(data[Math.floor(Math.random() * 2)])
       }
     });
+
+    isotope.load({"Blog":"on", "Deck":"on", "Photography":"on", "Writing":"on"});
   </script>
 </html>

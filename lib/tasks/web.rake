@@ -127,6 +127,7 @@ namespace :web do
       compile_development(sources, args[:mini] || false)
     end
 
+
     desc 'Compiles all web assets, bundles into a single file where possible'
     task :prod, [:rule] do |t, args|
       Rake::Task["web:make:clean"].invoke
@@ -144,10 +145,22 @@ namespace :web do
       compile_production(sources, args[:rule] || "components")
     end
 
+
     desc 'Cleans up all front end assets in public/web/'
     task :clean do
       puts "\e[1;33m** Cleaning up public/web/\e[0;31m"
       system "rm -rf #{Rails.root}/public/web"
+    end
+
+
+    desc 'Starts up file watcher for web assets'
+    task :start do
+      require 'filewatcher'
+      puts "\e[1;33m** Starting to watch web/\e[0;31m"
+
+      FileWatcher.new(["lib/", "Rakefile"]).watch do |filename|
+        puts "Changed " + filename
+      end
     end
   end
 end

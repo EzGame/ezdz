@@ -5,7 +5,7 @@
   <script src="../vendors/webcomponents-lite.min.js"></script>
   <script src="../vendors/handlebars.runtime.min.js"></script>
   <script src="../vendors/jquery.min.js"></script>
-  <link rel="import" href="../lib/ez-post-preview.html">
+  <link rel="import" href="../lib/ez-logo.html">
   <style>
     body,html {
       background-color: #222222;
@@ -18,29 +18,24 @@
       width: 100%;
       margin: 0;
     }
-
-    ez-post-preview {
-      height: 300px;
-      width: 600px;
-    }
   </style>
 </head>
 <body>
 <h1>ez-blog</h1>
 <div class="demo">
   <ez-server></ez-server>
-  <ez-post-preview hashid="jnkKnr" tags="test shit what"></ez-post-preview>
+  <ez-logo></ez-logo>
 </div>
 </body>
 <script>
-  var post = document.querySelector("ez-post-preview")
-  post.load({
-    "id": "jnkKnr",
-    "title": "This is a test post, for test purposes",
-    "type": "Blog",
-    "date": "2015-08-27",
-    "cover": "http://chefpatrick.com.s3.amazonaws.com/wp-content/uploads/2010/02/strip68.jpg",
-    "tags": ["test","first","what"]
-  });
+  // var post = document.querySelector("ez-post-preview")
+  // post.load({
+  //   "id": "jnkKnr",
+  //   "title": "This is a test post, for test purposes",
+  //   "type": "Blog",
+  //   "date": "2015-08-27",
+  //   "cover": "http://chefpatrick.com.s3.amazonaws.com/wp-content/uploads/2010/02/strip68.jpg",
+  //   "tags": ["test","first","what"]
+  // });
 </script>
 </html>

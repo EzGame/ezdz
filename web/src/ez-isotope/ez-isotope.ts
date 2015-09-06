@@ -37,16 +37,19 @@ module ez {
       return this._element.getAttribute('selector');
     }
 
-    public load(categories: Array<string>): void {
-      // this._$controls.html('');
+    public load(categories: Object): void {
+      var keys = Object.keys(categories);
+      this._$controls.html('');
 
-      for (var i = 0; i < categories.length; i++) {
+      for (var i = 0; i < keys.length; i++) {
+        var status = categories[keys[i]];
         this._$controls.append(
-          '<div name="c" status="on">' +
-            categories[i].toUpperCase() +
+          '<div name="c" status="' + status + '">' +
+            keys[i].toUpperCase() +
             '<div name="under"></div>' +
           '</div>'
         );
+        this._turn(status, this._$controls.children().last()[0]);
       }
 
       // manual lexical scoping says lol to code readability
@@ -59,9 +62,9 @@ module ez {
           __this._turn('off', _this);
 
           $(__this.target + ' > *').each(function() {
-            if ($(this).data(__this.selector).toUpperCase() ==
-              $(_this).text().toUpperCase()) {
-              if (this.hide === 'function') this.hide();
+            if (this.getAttribute('data-' + __this.selector).toUpperCase() ==
+               _this.textContent.toUpperCase()) {
+              if (typeof this.hide === 'function') this.hide();
               else $(this).hide(300);
             }
           });
@@ -71,10 +74,11 @@ module ez {
           __this._turn('on', _this);
 
           $(__this.target + ' > *').each(function() {
-            if ($(this).data(__this.selector).toUpperCase() ==
-              $(_this).text().toUpperCase())
-              if (this.show === 'function') this.show();
+            if (this.getAttribute('data-' + __this.selector).toUpperCase() ==
+               _this.textContent.toUpperCase()) {
+              if (typeof this.show === 'function') this.show();
               else $(this).show(300);
+            }
           });
         }
       });

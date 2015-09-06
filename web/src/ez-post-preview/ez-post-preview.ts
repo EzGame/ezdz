@@ -71,16 +71,32 @@ module ez {
       return this._element.getAttribute('tags').split(' ');
     }
 
+    get type(): string {
+      return this._element.getAttribute('data-type');
+    }
+
     public load(model: PostPreviewModel): void {
       this.id = model.id;
       this.tags = model.tags;
       this._$title.text(model.title);
       this._$date.text(model.date);
       this._$cover.attr('src', model.cover);
+      this._element.setAttribute('data-type', model.type);
 
       this._$cover.on('load', () => {
         this._resize();
       });
+    }
+
+    public hide(): void {
+      $(this._element).
+        velocity({ height: 0 }, { duration: 1000 }).
+        velocity({ display: "none" }, { delay: 1000 });
+    }
+
+    public show(): void {
+      $(this._element).
+        velocity({ height: 300 }, { display: "block" })
     }
 
     private _createTags(tags: Array<string>) {
@@ -106,11 +122,13 @@ module ez {
   export interface EzPostPreviewElement extends HTMLElement {
     id: string;
     tags: string;
-    load(model: PostPreviewModel): void
+    type: string;
+    load(model: PostPreviewModel): void;
+    hide(): void;
+    show(): void;
   }
 
   if (!ez.registered('ez-post-preview'))
     export var EzPostPreviewElement = ez.registerElement(
       'ez-post-preview', HTMLElement, PostPreview);
-
 }

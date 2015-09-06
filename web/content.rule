@@ -4,5 +4,6 @@
 <script src="vendors/handlebars.runtime.min.js"></script>
 <script src="vendors/imagesloaded.pkgd.min.js"></script>
 ez-isotope
+ez-logo
 ez-post-preview
 ez-server
