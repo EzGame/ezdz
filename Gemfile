@@ -4,6 +4,8 @@ source 'https://rubygems.org'
 gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
 gem 'jbuilder', '2.0'       # https://github.com/rails/jbuilder
 gem 'imgurapi'              # Imgur as image host
+gem 'image_optim'           # Lossless img compression
+gem 'image_optim_pack'      # Compression binaries
 gem 'mysql2'                # Use mysql as database
 gem 'rack', '~> 1.6.4'
 
@@ -24,7 +26,6 @@ group :development, :test do
   gem 'byebug'              # Server debugger
   gem 'spring'              # Spring speeds up development
   gem 'awesome_print'       # Get some color into the console
-
 end
 
 group :production do

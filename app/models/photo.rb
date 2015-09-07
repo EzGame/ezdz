@@ -26,8 +26,10 @@ class Photo < ActiveRecord::Base
   end
 
   def self.create_with_file!( file_path )
-    img = self.upload(file_path)
+    image_optim = ImageOptim.new(allow_lossy: true)
+    image_optim.optimize_image!(file_path)
 
+    img = self.upload(file_path)
     self.create!({
       url: img.link,
       imgur_hash: img.id,

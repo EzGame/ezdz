@@ -1,4 +1,4 @@
-@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700);
+/*@import url(//fonts.googleapis.com/css?family=Lato:100,300,400,700);
 
 html, body {
   margin: 0;
@@ -22,7 +22,7 @@ html, body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
-/* Background */
+
 #app-bg {
   position: absolute;
   top: 0;
@@ -33,7 +33,7 @@ html, body {
   height: 100%;
   background: linear-gradient(to bottom,  #2c7890 0%,#2d3246 100%);
 }
-/* Main App */
+
 #app-main {
   width: 100%;
   height: 100%;
@@ -46,7 +46,7 @@ html, body {
   transform-style: preserve-3d;
   transform-origin: center center 500px;
 }
-/* Main App Sidebar */
+
 #app-container #app-sidebar {
   position: absolute;
   height: 100%;
@@ -124,7 +124,7 @@ html, body {
 #app-sidebar #app-sidebar-container #app-menu #app-menu-social a:hover span {
   font-size: 24px;
 }
-/* Main App Body */
+
 #app-container #app-body {
   position: relative;
   width: 100%;
@@ -151,11 +151,4 @@ html, body {
   width: 100%;
   height: 100%;
 }
-
-
-
-
-
-
-
-
+*/
