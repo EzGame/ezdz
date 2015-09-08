@@ -5,6 +5,9 @@
   "config": {
     "unsafe-perm": true
   },
+  "engines": {
+    "node": "0.10.x"
+  },
   "dependencies": {
     "handlebars": "3.0.3",
     "typescript": "1.5",
