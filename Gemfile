@@ -14,12 +14,6 @@ gem 'rails', '4.2.0'        # Bundle edge Rails instead
 gem 'turbolinks'            # Turbolinks makes links in web app faster
 gem 'httparty', '0.13.3'    # httparty for sending RESTful API requests
 
-### Front-End Gems ###
-group :web do
-  gem 'sass-rails'          # Use SCSS for stylesheets
-  gem 'filewatcher'         # File watching for
-end
-
 group :development, :test do
   gem 'better_errors'       # Way better exception screen for debugging
   gem 'byebug'              # Server debugger
@@ -29,7 +23,5 @@ group :development, :test do
 end
 
 group :production do
-  gem 'capistrano', '~> 2.12.0'
-  gem 'unicorn', '~> 4.1.0'
   gem 'pg'                  # Use mysql as database
 end

@@ -1,9 +1,8 @@
 namespace :web do
-  # TODO: set target(dst) path
-  # TODO: use absolute paths
-  # TODO: set module name
-  # TODO: hiearchial make
+  # TODO: Move this to NPM script (separate from ruby)
+  # TODO: filewatcher
 
+  PATH = "node_modules/.bin"
   DESTINATION = "public/web/lib"
   def dst( src, type )
     filename = File.basename(src, type)
@@ -46,7 +45,7 @@ namespace :web do
     file = File.open("public/web/temp", "w+")
     file.write([scripts, htmls].flatten.join("\n"))
     file.seek(0)
-    return unless system("vulcanize #{file.path} > public/web/#{rule}.html")
+    return unless system("#{PATH}/vulcanize #{file.path} > public/web/#{rule}.html")
     File.delete(file.path);
   end
 
@@ -57,8 +56,8 @@ namespace :web do
       next if src.match /d\.ts$/
       out = dst(src, '.ts')
       # next unless compile?( src, out )
-      return unless system("tsc -t ES5 #{src} -out #{out}")
-      system("minify --output #{out.gsub(/\.js$/, '.min.js')} #{out}") if minify
+      return unless system("#{PATH}/tsc -t ES5 #{src} -out #{out}")
+      system("#{PATH}/minify --output #{out.gsub(/\.js$/, '.min.js')} #{out}") if minify
 
       puts "\e[32m#{src} ~> #{out}\e[0m"
     end if sources[:typescript].present?
@@ -67,7 +66,7 @@ namespace :web do
     sources[:handlebars].each do |src|
       out = dst(src, '.handlebars')
       next unless compile?( src, out )
-      return unless system("handlebars #{src} -f #{out}")
+      return unless system("#{PATH}/handlebars #{src} -f #{out}")
 
       puts "\e[32m#{src} ~> #{out}\e[0m"
     end if sources[:handlebars].present?
@@ -76,8 +75,8 @@ namespace :web do
     sources[:scss].each do |src|
       out = dst(src, '.scss')
       next unless compile?( src, out )
-      mini = (minify) ? "--style compressed" : ""
-      return unless system("sass --sourcemap=none #{mini} #{src} #{out}")
+      mini = (minify) ? "--output-style compressed" : ""
+      return unless system("#{PATH}/node-sass --sourcemap=none #{mini} #{src} --output #{out}")
 
       puts "\e[32m#{src} ~> #{out}\e[0m"
     end if sources[:scss].present?
@@ -104,15 +103,6 @@ namespace :web do
       `cp -r #{Rails.root}/web/tests #{Rails.root}/public/web/`
     end
   end
-
-
-  desc 'Sets up required node packages on global, requires super user'
-  task :setup do
-    system 'sudo npm install -g handlebars'
-    system 'sudo npm install -g typescript'
-    system 'sudo npm install -g minifier'
-  end
-
 
   namespace :make do
     desc 'Compiles all web assets from web/ to public/web/'

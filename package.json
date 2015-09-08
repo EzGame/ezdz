@@ -1,0 +1,19 @@
+{
+  "name": "ezdz-web",
+  "author": "ezdz",
+  "version": "0.0.1",
+  "config": {
+    "unsafe-perm": true
+  },
+  "dependencies": {
+    "handlebars": "3.0.3",
+    "typescript": "1.5",
+    "minifier": "0.7.0",
+    "node-sass": "3.3.2",
+    "vulcanize": "1.9.3"
+  },
+  "scripts": {
+    "start": "echo #TODO RUN FILEWATCHER SCRIPT",
+    "postinstall": "rake web:make:prod[content]"
+  }
+}

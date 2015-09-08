@@ -17,7 +17,9 @@ module ez {
       "4K-Trash",
       "Star-Wars-Fan",
       "Kirk-Over-Picard",
-      "Designer"
+      "Designer",
+      "Foodie",
+      "Hungry"
     ];
 
     private _active: Array<string> = [

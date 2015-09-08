@@ -21,9 +21,11 @@
 
 # Ignore sensitive files
 config/database.yml
+config/imgur.yml
 
 # Ignore compiled assets
 public/web/
+node_modules/
 
 # Ignore randoms
 .sass-cache/
