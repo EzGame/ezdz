@@ -13,7 +13,6 @@
     "vulcanize": "1.9.3"
   },
   "scripts": {
-    "start": "echo #TODO RUN FILEWATCHER SCRIPT",
-    "postinstall": "rake web:make:prod[content]"
+    "start": "echo #TODO RUN FILEWATCHER SCRIPT"
   }
 }

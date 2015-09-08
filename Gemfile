@@ -23,5 +23,6 @@ group :development, :test do
 end
 
 group :production do
+  gem 'puma'                # Use Puma over unicorn for concurrent requests
   gem 'pg'                  # Use mysql as database
 end
