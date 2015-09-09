@@ -47,15 +47,14 @@ function vulcanize( rules, group ) {
     return '<link rel=\'import\' href=\'lib/'+ html +'.html\'>';
   })
   scripts = filter(rules, /(<script|<link)/);
-  fs.writeFileSync('public/web/temp',
-    scripts.concat(htmls).join('\n'));
+  fs.writeFileSync('public/web/temp', scripts.concat(htmls).join('\n'));
 
   log('** Vulcanizing'.yellow);
-  log((EXECPATH + '/vulcanize ' +
-    'public/web/temp > public/web/'+ group +'.html').yellow)
-  shell.exec(EXECPATH + '/vulcanize ' +
-    'public/web/temp > public/web/'+ group +'.html');
-  success('** -- vulcanized');
+  var out = shell.exec(EXECPATH + '/vulcanize ' +
+    'public/web/temp', { silent: true });
+  fs.writeFileSync('public/web/'+ group +'.html', out.output);
+  shell.exec('rm public/web/temp');
+  success('** -- -- vulcanized');
   success('** Build successful!');
 }
 
@@ -77,9 +76,10 @@ function make(sources, minify) {
 
     if (minify) {
       shell.exec(EXECPATH + '/minify ' +
-        '--output '+ outfile.replace(/\.js$/,'.min.js') +' '+ outfile);
+        '--output '+ outfile.replace(/\.js$/,'.min.js') +' '+ outfile,
+        { silent: true });
     }
-    success('** -- success');
+    success('** -- -- success');
   });
 
   log('** Compiling handlebars');
@@ -88,7 +88,7 @@ function make(sources, minify) {
     var outfile = dst(hbfile, '.handlebars');
     shell.exec(EXECPATH + '/handlebars ' +
       hbfile +' -f '+ outfile);
-    success('** -- success');
+    success('** -- -- success');
   });
 
   log('** Compiling SASS');
@@ -97,8 +97,9 @@ function make(sources, minify) {
     var outfile = dst(safile, '.scss');
     var mini = (minify) ? '--output-style compressed' : '';
     shell.exec(EXECPATH + '/node-sass ' +
-      '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile);
-    success('** -- success');
+      '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile,
+      { silent: true });
+    success('** -- -- success');
   });
 
   log('** Copying HTMLS');
