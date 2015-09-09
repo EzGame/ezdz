@@ -23,10 +23,8 @@ if (cmd == 'prod') {
   var sources = find_and_aggregate();
   log('Cleaning public/web'.underline);
   clean();
-
   log('Making production'.underline);
   make(sources, true);
-
   log('Vulcanizing'.underline);
   var rules = fs.readFileSync('web/'+ group +'.rule', 'utf8').split('\n');
   vulcanize(rules, group);
@@ -42,20 +40,18 @@ if (cmd == 'prod') {
  * make release
  */
 function vulcanize( rules, group ) {
-  log('** Compiling rules file')
+  log('>> Compiling rules file')
   htmls = filter(rules, /^ez-/).map(function(html) {
     return '<link rel=\'import\' href=\'lib/'+ html +'.html\'>';
   })
   scripts = filter(rules, /(<script|<link)/);
   fs.writeFileSync('public/web/temp', scripts.concat(htmls).join('\n'));
 
-  log('** Vulcanizing'.yellow);
-  var out = shell.exec(EXECPATH + '/vulcanize ' +
-    'public/web/temp', { silent: true });
+  log('>> Vulcanizing'.yellow);
+  var out = exec(EXECPATH + '/vulcanize ' + 'public/web/temp');
   fs.writeFileSync('public/web/'+ group +'.html', out.output);
-  shell.exec('rm public/web/temp');
-  success('** -- -- vulcanized');
-  success('** Build successful!');
+  exec('rm public/web/temp');
+  success('>> Build successful!'.underline);
 }
 
 /*
@@ -64,64 +60,50 @@ function vulcanize( rules, group ) {
 function make(sources, minify) {
   var minify = (typeof minify === 'undefined') ? false : true;
 
-  log('** Compiling typescripts');
+  log('>> Compiling typescripts');
   var regex = new RegExp(/d\.ts$/);
   sources.typescripts.forEach(function(tsfile) {
     if (regex.test(tsfile)) return true;
-
-    log('** -- compiling ' + tsfile);
     var outfile = dst(tsfile, '.ts');
-    shell.exec(EXECPATH + '/tsc ' +
-      '-t ES5 '+ tsfile +' -out '+ outfile);
-
+    exec(EXECPATH + '/tsc ' + '-t ES5 '+ tsfile +' -out '+ outfile);
     if (minify) {
-      shell.exec(EXECPATH + '/minify ' +
-        '--output '+ outfile.replace(/\.js$/,'.min.js') +' '+ outfile,
-        { silent: true });
+      var minfile = outfile.replace(/\.js$/,'.min.js')
+      exec(EXECPATH + '/minify ' + '--output '+  +' '+ outfile);
     }
-    success('** -- -- success');
   });
 
-  log('** Compiling handlebars');
+  log('>> Compiling handlebars');
   sources.handlebars.forEach(function(hbfile) {
-    log('** -- compiling ' + hbfile);
     var outfile = dst(hbfile, '.handlebars');
-    shell.exec(EXECPATH + '/handlebars ' +
-      hbfile +' -f '+ outfile);
-    success('** -- -- success');
+    exec(EXECPATH + '/handlebars ' + hbfile +' -f '+ outfile);
   });
 
-  log('** Compiling SASS');
+  log('>> Compiling SASS');
   sources.scss.forEach(function(safile) {
-    log('** -- compiling '+ safile);
     var outfile = dst(safile, '.scss');
     var mini = (minify) ? '--output-style compressed' : '';
-    shell.exec(EXECPATH + '/node-sass ' +
-      '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile,
-      { silent: true });
-    success('** -- -- success');
+    exec(EXECPATH + '/node-sass ' +
+      '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile);
   });
 
-  log('** Copying HTMLS');
+  log('>> Copying HTMLS');
   sources.html.forEach(function(html) {
     var outfile = dst(html, '.html');
-    shell.exec('cp ' + html + ' ' + outfile);
+    exec('cp ' + html + ' ' + outfile);
   });
 
-  log('** Copying vendors');
-  shell.exec('cp -r web/vendors public/web/');
+  log('>> Copying vendors');
+  exec('cp -r web/vendors public/web/');
 
-  log('** Copying tests');
-  shell.exec('cp -r web/tests public/web/');
+  log('>> Copying tests');
+  exec('cp -r web/tests public/web/');
 }
 
 /*
  * make clean
  */
 function clean() {
-  log('** rm -rf public/web');
-  shell.exec('rm -rf rm -rf public/web');
-  success('** -- cleaned');
+  exec('rm -rf public/web');
 }
 
 function find_and_aggregate() {
@@ -158,6 +140,19 @@ function dst( src, type ) {
       destination += type;
   }
   return destination;
+}
+
+/* Use shelljs to exec a command */
+function exec( cmd ) {
+  log('>> ' + cmd);
+  var out = shell.exec(cmd, { silent: true });
+  if (out.code == 0) {
+    success('>> -- success');
+    return out;
+  } else {
+    error('>> -- error!');
+    throw out.output;
+  }
 }
 
 /* Loggers */
