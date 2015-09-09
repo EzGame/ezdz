@@ -23,6 +23,6 @@
     "start": "node web/bin/watch.js",
     "build": "node web/bin/make.js prod content",
     "make": "node web/bin/make.js",
-    "postinstall": "npm run build"
+    "postinstall": "npm install && npm run build"
   }
 }
