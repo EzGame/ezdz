@@ -27,6 +27,6 @@ module Ezdz
     config.autoload_paths += %W(#{config.root}/app/models/posts)
 
     # Serve static assets
-    config.serve_static_assets = true
+    config.serve_static_files = true
   end
 end

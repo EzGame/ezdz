@@ -10,12 +10,19 @@
   },
   "dependencies": {
     "handlebars": "3.0.3",
-    "typescript": "1.5",
+    "typescript-compiler": "1.4.1",
     "minifier": "0.7.0",
     "node-sass": "3.3.2",
-    "vulcanize": "1.9.3"
+    "vulcanize": "1.9.3",
+    "shelljs": "0.5.3",
+    "colors": "1.1.2",
+    "glob": "5.0.14",
+    "fs": "0.0.2"
   },
   "scripts": {
-    "start": "echo #TODO RUN FILEWATCHER SCRIPT"
+    "start": "node web/bin/watch.js",
+    "build": "node web/bin/make.js prod content",
+    "make": "node web/bin/make.js",
+    "postinstall": "npm build"
   }
 }
