@@ -51,8 +51,8 @@ function vulcanize( rules, group ) {
     scripts.concat(htmls).join('\n'));
 
   log('** Vulcanizing'.yellow);
-  // log((EXECPATH + '/vulcanize ' +
-  //   'public/web/temp > public/web/'+ group +'.html').yellow
+  log((EXECPATH + '/vulcanize ' +
+    'public/web/temp > public/web/'+ group +'.html').yellow)
   shell.exec(EXECPATH + '/vulcanize ' +
     'public/web/temp > public/web/'+ group +'.html');
   success('** -- vulcanized');
