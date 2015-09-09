@@ -2,17 +2,18 @@
   "name": "ezdz-web",
   "author": "ezdz",
   "version": "0.0.1",
+  "repository": "none",
   "config": {
     "unsafe-perm": true
   },
   "engines": {
-    "node": "0.10.x"
+    "node": "0.10.36"
   },
   "dependencies": {
     "handlebars": "3.0.3",
-    "typescript-compiler": "1.4.1",
+    "typescript": "1.5",
     "minifier": "0.7.0",
-    "node-sass": "3.3.2",
+    "node-sass": "3.3.0",
     "vulcanize": "1.9.3",
     "shelljs": "0.5.3",
     "colors": "1.1.2",
@@ -23,6 +24,7 @@
     "start": "node web/bin/watch.js",
     "build": "node web/bin/make.js prod content",
     "make": "node web/bin/make.js",
-    "postinstall": "npm install && npm run build"
+    "preinstall": "npm install --ignore-scripts",
+    "postinstall": "npm update && npm run build"
   }
 }

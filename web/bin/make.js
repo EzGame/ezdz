@@ -48,9 +48,11 @@ function vulcanize( rules, group ) {
   })
   scripts = filter(rules, /(<script|<link)/);
   fs.writeFileSync('public/web/temp',
-    htmls.concat(scripts).join('\n'));
+    scripts.concat(htmls).join('\n'));
 
   log('** Vulcanizing'.yellow);
+  // log((EXECPATH + '/vulcanize ' +
+  //   'public/web/temp > public/web/'+ group +'.html').yellow
   shell.exec(EXECPATH + '/vulcanize ' +
     'public/web/temp > public/web/'+ group +'.html');
   success('** -- vulcanized');
