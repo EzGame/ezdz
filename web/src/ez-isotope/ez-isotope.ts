@@ -8,6 +8,7 @@ module ez {
 
     private _$container: JQuery;
     private _$controls: JQuery;
+    public onChange: Function;
 
     createdCallback() {
       if (!this._element)
@@ -53,40 +54,54 @@ module ez {
       }
 
       // manual lexical scoping says lol to code readability
-      var __this = this;
+      var _this = this;
       $('[name=c]').on('click', function() {
-        var _this = this;
+        var delta = 0;
+        var selector = 'data-' + _this.selector;
 
-        if (_this.getAttribute('status') == 'on') {
-          _this.setAttribute('status', 'off');
-          __this._turn('off', _this);
+        if (this.getAttribute('status') == 'on') {
+          this.setAttribute('status', 'off');
+          _this._turn('off', this);
 
-          $(__this.target + ' > *').each(function() {
-            if (this.getAttribute('data-' + __this.selector).toUpperCase() ==
-               _this.textContent.toUpperCase()) {
-              if (typeof this.hide === 'function') this.hide();
-              else $(this).hide(300);
+          var children = document.querySelectorAll(_this.target + ' > *');
+          for (var i = 0; i < children.length; i++) {
+            var child: any = children[i];
+            if (child.getAttribute(selector).toUpperCase() ==
+                    this.textContent.toUpperCase()) {
+              if (typeof child.hide === 'function') child.hide();
+              else $(child).hide(300);
+              delta--;
             }
-          });
-
+          }
         } else {
-          _this.setAttribute('status', 'on');
-          __this._turn('on', _this);
+          this.setAttribute('status', 'on');
+          _this._turn('on', this);
 
-          $(__this.target + ' > *').each(function() {
-            if (this.getAttribute('data-' + __this.selector).toUpperCase() ==
-               _this.textContent.toUpperCase()) {
-              if (typeof this.show === 'function') this.show();
-              else $(this).show(300);
+          var children = document.querySelectorAll(_this.target + ' > *');
+          for (var i = 0; i < children.length; i++) {
+            var child: any = children[i];
+            if (child.getAttribute(selector).toUpperCase() ==
+                    this.textContent.toUpperCase()) {
+              if (typeof child.show === 'function') child.show();
+              else $(child).show(300);
+              delta++;
             }
-          });
+          }
         }
+
+        // Callback on change
+        if (typeof _this.onChange === 'function')
+          _this.onChange(delta);
       });
     }
 
     public categories(): Array<string> {
       return $.map(this._$controls.children(), (el: HTMLElement) => {
-        return el.innerHTML;
+        if (el.getAttribute('status') == 'on') {
+          return el.textContent;
+        } else {
+          return null;
+        }
       });
     }
 
@@ -105,6 +120,7 @@ module ez {
   export interface EzIsotope extends HTMLElement {
     target: string;
     selector: string;
+    onChange(delta: number): Function;
     load(categories: Array<string>): void;
     categories(): Array<string>;
   }

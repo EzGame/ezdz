@@ -4,28 +4,12 @@
     <link rel="import" href="/web/components.html">
     <style>
       html, body {
+        display: flex;
+        flex-flow: column;
         height: 100%;
         margin: 0;
         overflow: hidden;
         padding: 0;
-      }
-
-      #container {
-        background: #f7f7f7;
-        border-top: 1px solid #ccc;
-        display: block;
-        height: 100%;
-        left: 0px;
-        overflow: scroll;
-        padding: 5px;
-        position: relative;
-        right: 0px;
-      }
-
-      ez-isotope {
-        height: 27px;
-        width: 700px;
-        margin: 63px auto 0 auto;
       }
 
       ez-logo {
@@ -35,9 +19,30 @@
         z-index: 1000;
       }
 
+      ez-isotope {
+        box-sizing: border-box;
+        flex: 0 1 90px;
+        height: 90px !important;
+        margin: 0 auto;
+        padding-top: 63px;
+        width: 700px;
+      }
+
+      #container {
+        background: #f7f7f7;
+        border-top: 1px solid #ccc;
+        display: block;
+        flex: 1 1 auto;
+        left: 0px;
+        overflow: scroll;
+        padding: 5px;
+        position: relative;
+        right: 0px;
+      }
+
       ez-post-preview {
         width: 700px;
-        height: 300px;
+        height: 250px;
         margin: 0 auto 10px auto;
       }
     </style>
@@ -46,7 +51,8 @@
     <ez-server></ez-server>
     <ez-isotope target='#container' selector='type'></ez-isotope>
     <ez-logo></ez-logo>
-    <div id="container"></div>
+    <div id="container">
+    </div>
   </body>
   <script>
     var body = document.querySelector("body");
@@ -54,32 +60,49 @@
     var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
 
-    server.index().then(function(response) {
-      var data = response.data
+    var params = {
+      limit: 5,
+      offset: 0,
+      categories: isotope.categories().join(',')
+    };
 
-      /* Append response */
-      for (var i = 0; i < data.length; i++) {
-        var post = document.createElement("ez-post-preview");
-        post.load(data[i]);
-        container.appendChild(post);
-      }
-
-      /* Set click callback - Deprecated */
-      // $('ez-post-preview').on('click', function(e) {
-      //   e.preventDefault();
-      //   server.get('/p/' + this.id).then(function(results) {
-      //     var popup = new ez.EzPopupElement();
-      //     popup.html = results;
-      //     body.appendChild(popup);
-      //   });
-      // });
-    });
-
+    /* Configure isotope */
     isotope.load({
       "Blog":"on",
       "Deck":"on",
       "Photography":"on",
       "Writing":"on"
     });
+
+    isotope.onChange = function(delta) {
+      console.log(delta);
+      var newOffset = params.limit + params.offset;
+      var newLimit = params.limit + delta;
+
+      if (newLimit > 0) {
+        // look for more from server
+      } else {
+        // remove?
+      }
+    }
+
+    /* Load content */
+    index(params);
+
+    /* Server index call */
+    function index(params) {
+      server.index(params).then(function(response) {
+        appendChildren(response.data);
+      });
+    }
+
+    /* Append children to container */
+    function appendChildren(data) {
+      for (var i = 0; i < data.length; i++) {
+        var post = document.createElement("ez-post-preview");
+        post.load(data[i]);
+        container.appendChild(post);
+      }
+    }
   </script>
 </html>

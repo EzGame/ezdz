@@ -66,10 +66,10 @@ function make(sources, minify) {
     if (regex.test(tsfile)) return true;
     var outfile = dst(tsfile, '.ts');
     exec(EXECPATH + '/tsc ' + '-t ES5 '+ tsfile +' -out '+ outfile);
-    if (minify) {
-      var minfile = outfile.replace(/\.js$/,'.min.js')
-      exec(EXECPATH + '/minify ' + '--output '+  +' '+ outfile);
-    }
+    // if (minify) {
+    //   var minfile = outfile.replace(/\.js$/,'.min.js')
+    //   exec(EXECPATH + '/minify ' + '--output '+  +' '+ outfile);
+    // }
   });
 
   log('>> Compiling handlebars');

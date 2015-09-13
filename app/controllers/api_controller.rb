@@ -33,8 +33,15 @@ class ApiController < ActionController::Base
   def index
     limit = _get_param(:limit, 'Fixnum', 10)
     offset = _get_param(:offset, 'Fixnum', 0)
+    cats = _get_param(:categories, 'String', "BLOG,DECK,PHOTOGRAPHY,WRITING");
 
-    results = Post.all.limit(limit).order('created_at desc').offset(offset)
+    categories = cats.split(',').map(&:downcase)
+    results = Post.all.
+      limit(limit).
+      offset(offset).
+      where(type: categories).
+      order('created_at desc')
+
     render json: _respond_with(results.preview)
   end
 
@@ -56,14 +63,21 @@ class ApiController < ActionController::Base
       param = params[symbol]
       klass = param.class.name
 
-      if param.present? && klass == type
-        return param
-      elsif param.present? && klass != type
-        raise ApiException::BadRequest.new "#{param} is of the wrong type!"
+      if param.present?
+        return _convert_param(param, type)
       elsif param.blank? && default.present?
         return default
       else # params.blank? && default.blank?
         raise ApiException::BadRequest.new "#{symbol} is missing from request!"
+      end
+    end
+
+
+    def _convert_param( param, type )
+      if type == 'Fixnum'
+        param.to_i
+      else
+        param
       end
     end
 

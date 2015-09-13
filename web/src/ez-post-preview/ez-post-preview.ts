@@ -81,13 +81,13 @@ module ez {
 
     public hide(): void {
       $(this._element).
-        velocity({ height: 0 }, { duration: 1000 }).
-        velocity({ display: "none" }, { delay: 1000 });
+        velocity({ opacity: 0 }, { duration: 500 }).
+        velocity({ display: "none" }, { delay: 500 });
     }
 
     public show(): void {
       $(this._element).
-        velocity({ height: 300 }, { display: "block" })
+        velocity({ opacity: 1 }, { display: "block" })
     }
 
     private _createTags(tags: Array<string>) {

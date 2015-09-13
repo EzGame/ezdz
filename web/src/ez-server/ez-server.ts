@@ -40,7 +40,6 @@ module ez {
 
     public search(q: string, options?: ApiParams): Promise<any> {
       options = (options === undefined) ? {} : options;
-      debugger
       options['q'] = q;
 
       return new Promise<any>((resolve, reject) => {
