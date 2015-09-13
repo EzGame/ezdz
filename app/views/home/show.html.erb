@@ -23,7 +23,7 @@
     <ez-header src="<%= @post.photo.url -%>"
                title="<%= @post.title -%>"></ez-header>
     <ez-blog>
-      <%= @post.meta -%>
+      <%= @post.to_json -%>
     </ez-blog>
     <ez-share></ez-share>
   </body>

@@ -1,24 +1,7 @@
-{{! Place component template in here }}
-{{#if preview}}
-  <div name="margin">
-    <h1 name="title"></h1>
-    <div name="date"></div>
-    {{#if first_photo}}<img name="first-photo" src="">{{/if}}
-    <div name="body"></div>
-    <div style="position:relative; height: 16px;">
-      <div name="tags"></div>
-      <a name="read">Read ...</a>
-    </div>
+<div name="margin">
+  <div name="date">{{date}}</div>
+  <div name="body">{{meta.body}}</div>
+  <div style="position:relative; height: 46px;">
+    <div name="tags">{{tags}}</div>
   </div>
-{{else}}
-  <div name="margin">
-    <h1 name="title"></h1>
-    <div name="date"></div>
-    {{#if first_photo}}<img name="first-photo" src="">{{/if}}
-    <div name="body"></div>
-    <div name="photos"></div>
-    <div style="position:relative; height: 46px;">
-      <div name="tags"></div>
-    </div>
-  </div>
-{{/if}}
+</div>
