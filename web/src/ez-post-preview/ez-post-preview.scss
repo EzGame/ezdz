@@ -19,6 +19,7 @@ ez-post-preview {
   display: block;
 
   [name=container] {
+    cursor: pointer;
     display: block;
     height: inherit;
     overflow: hidden;

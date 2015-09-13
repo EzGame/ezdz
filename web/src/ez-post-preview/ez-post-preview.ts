@@ -53,18 +53,8 @@ module ez {
       });
     }
 
-    set id(newId: string) {
-      this._$anchor.attr('href', '/p/' + newId);
-      this._element.setAttribute('id', newId);
-    }
-
     get id(): string {
       return this._element.getAttribute('id');
-    }
-
-    set tags(newTags: Array<string>) {
-      this._createTags(newTags);
-      this._element.setAttribute('tags', newTags.join(' '));
     }
 
     get tags(): Array<string> {
@@ -76,8 +66,9 @@ module ez {
     }
 
     public load(model: PostPreviewModel): void {
-      this.id = model.id;
-      this.tags = model.tags;
+      this._element.setAttribute('id', model.id);
+      this._element.setAttribute('tags', model.tags.join(' '));
+      this._$anchor.attr('href', '/p/' + model.id);
       this._$title.text(model.title);
       this._$date.text(model.date);
       this._$cover.attr('src', model.cover);

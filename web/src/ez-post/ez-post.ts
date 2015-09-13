@@ -2,17 +2,17 @@
 /// <reference path="../ez.ts"/>
 
 module ez {
-  class EzBlog {
+  class EzPost {
     constructor(
-      private _element: EzBlogElement,
+      private _element: EzPostElement,
       private _model: any) { }
 
-    private _template = Handlebars.templates['ez-blog'];
+    private _template = Handlebars.templates['ez-post'];
 
     createdCallback() {
       /* Called when component is created */
       if (!this._element)
-        EzBlog.call(this, this);
+        EzPost.call(this, this);
     }
 
     attachedCallback() {
@@ -27,11 +27,11 @@ module ez {
     }
   }
 
-  export interface EzBlogElement extends HTMLElement {
+  export interface EzPostElement extends HTMLElement {
     render(): void;
   };
 
   /* Export Component */
-  if (!ez.registered('ez-blog'))
-    export var EzBlogElement = ez.registerElement('ez-blog', HTMLElement, EzBlog);
+  if (!ez.registered('ez-post'))
+    export var EzPostElement = ez.registerElement('ez-post', HTMLElement, EzPost);
 }

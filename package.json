@@ -22,7 +22,7 @@
   },
   "scripts": {
     "start": "node web/bin/watch.js",
-    "build": "node web/bin/make.js prod content",
+    "build": "node web/bin/make.js prod components",
     "make": "node web/bin/make.js",
     "preinstall": "npm install --ignore-scripts",
     "postinstall": "npm update && npm run build"

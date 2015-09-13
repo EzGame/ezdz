@@ -1,0 +1,11 @@
+ez-popup {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2000;
+
+  [name=container] {
+    position: relative;
+  }
+}

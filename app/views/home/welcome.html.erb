@@ -1,7 +1,7 @@
 <html>
   <head>
     <%= render template: 'templates/_meta' -%>
-    <link rel="import" href="/web/content.html">
+    <link rel="import" href="/web/components.html">
     <style>
       html, body {
         height: 100%;
@@ -49,6 +49,7 @@
     <div id="container"></div>
   </body>
   <script>
+    var body = document.querySelector("body");
     var server = document.querySelector("ez-server");
     var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
@@ -56,12 +57,22 @@
     server.index().then(function(response) {
       var data = response.data
 
-      for (var i = 0; i < 10; i++) {
+      /* Append response */
+      for (var i = 0; i < data.length; i++) {
         var post = document.createElement("ez-post-preview");
+        post.load(data[i]);
         container.appendChild(post);
-
-        post.load(data[Math.floor(Math.random() * 2)])
       }
+
+      /* Set click callback - Deprecated */
+      // $('ez-post-preview').on('click', function(e) {
+      //   e.preventDefault();
+      //   server.get('/p/' + this.id).then(function(results) {
+      //     var popup = new ez.EzPopupElement();
+      //     popup.html = results;
+      //     body.appendChild(popup);
+      //   });
+      // });
     });
 
     isotope.load({

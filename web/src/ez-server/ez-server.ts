@@ -65,17 +65,27 @@ module ez {
     public show(id: string): Promise<any> {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
-          url: this._constructUrl('show', id),
+          url: this._constructUrl('show', { 'id': id }),
           success: function(r) { resolve(r); },
           error: function(e) { reject(e); }
         })
       })
     }
 
+    public get(url: string): Promise<any> {
+      return new Promise<any>((resolve, reject) => {
+        $.ajax({
+          url: url,
+          success: function(r) { resolve(r); },
+          error: function(e) { reject(e); }
+        })
+      });
+    }
+
     private _constructUrl(action: string, params: any) :string {
       var base_uri = '/api/' + action + '?'
       if (action == 'show') {
-        return base_uri + params;
+        return base_uri + this._serialize(params);
       } else if (action == 'index') {
         return base_uri + this._serialize(params);
       } else if (action == 'search') {
@@ -99,15 +109,19 @@ module ez {
     search(
       q: string,
       options?: ApiParams
-    ): Promise<any>,
+    ): Promise<any>;
 
     index(
       options?: ApiParams
-    ): Promise<any>
+    ): Promise<any>;
 
     show(
       id: string
-    ): Promise<any>
+    ): Promise<any>;
+
+    get(
+      url: string
+    ): Promise<any>;
   }
 
   /* Export Component */

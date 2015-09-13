@@ -1,6 +1,6 @@
 /* Place component css styles in here */
 
-ez-blog {
+ez-post {
   $section-divide: 30px;
   display: block;
   padding: 50px 0;
@@ -45,6 +45,7 @@ ez-blog {
   }
 
   div[name=body] {
+    @include font(body, 16px);
     margin-top: $section-divide;
 
     p {

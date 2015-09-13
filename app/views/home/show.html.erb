@@ -1,7 +1,7 @@
 <html>
   <head>
     <%= render template: 'templates/_meta' -%>
-    <link rel="import" href="/web/content.html">
+    <link rel="import" href="/web/components.html">
     <style>
       html, body {
         margin: 0;
@@ -13,7 +13,7 @@
         z-index: 1000;
       }
 
-      ez-blog {
+      ez-post {
         background: #f7f7f7;
       }
     </style>
@@ -22,20 +22,17 @@
     <ez-logo></ez-logo>
     <ez-header src="<%= @post.photo.url -%>"
                title="<%= @post.title -%>"></ez-header>
-    <ez-blog>
+    <ez-post>
       <%= @post.to_json -%>
-    </ez-blog>
+    </ez-post>
     <ez-share></ez-share>
   </body>
   <script>
   </script>
 </html>
 <!--
-  This should not be too complicated
-  4) html content
   We could refactor ez-blog to handle the html stuff?
   it would:
-  1) hook onto content html
   2) parse content for special tags(?)
   3) give content special css
  -->
