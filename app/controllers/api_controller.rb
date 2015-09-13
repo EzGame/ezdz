@@ -44,7 +44,7 @@ class ApiController < ActionController::Base
   def show
     id = _get_param(:id, 'String')
 
-    result = Post.find_by_hashid(id)
+    result = Post.from_hashid(id)
     render json: _respond_with(result.full)
   end
 

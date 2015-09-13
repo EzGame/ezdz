@@ -47,11 +47,11 @@ class Post < ActiveRecord::Base
     end
   end
 
-  def self.find_by_tags( name )
+  def self.from_tags( name )
     Post.includes(:tags).where("tags.name" => name).limit(1)
   end
 
-  def self.find_by_hashid( hashid )
+  def self.from_hashid( hashid )
     # XXX ezdz - overwrite default find_by so we get activerecord class
     # This should only be one record at all times
     Post.where(:hashid => hashid)

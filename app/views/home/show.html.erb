@@ -1,1 +1,41 @@
-SHOW
+<html>
+  <head>
+    <%= render template: 'templates/_meta' -%>
+    <link rel="import" href="/web/content.html">
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+      }
+
+      ez-logo {
+        position: fixed;
+        z-index: 1000;
+      }
+
+      ez-blog {
+        background: #f7f7f7;
+      }
+    </style>
+  </head>
+  <body>
+    <ez-logo></ez-logo>
+    <ez-header src="<%= @post.photo.url -%>"
+               title="<%= @post.title -%>"></ez-header>
+    <ez-blog>
+      <%= @post.meta -%>
+    </ez-blog>
+    <ez-share></ez-share>
+  </body>
+  <script>
+  </script>
+</html>
+<!--
+  This should not be too complicated
+  4) html content
+  We could refactor ez-blog to handle the html stuff?
+  it would:
+  1) hook onto content html
+  2) parse content for special tags(?)
+  3) give content special css
+ -->

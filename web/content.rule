@@ -3,7 +3,10 @@
 <script src="vendors/webcomponents-lite.min.js"></script>
 <script src="vendors/handlebars.runtime.min.js"></script>
 <script src="vendors/imagesloaded.pkgd.min.js"></script>
+ez-blog
+ez-header
 ez-isotope
 ez-logo
 ez-post-preview
 ez-server
+ez-share

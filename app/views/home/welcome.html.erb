@@ -1,7 +1,7 @@
 <html>
   <head>
     <%= render template: 'templates/_meta' -%>
-    <link rel="import" href="web/content.html">
+    <link rel="import" href="/web/content.html">
     <style>
       html, body {
         height: 100%;
@@ -32,6 +32,7 @@
         left: 10px;
         position: fixed;
         top: 5px;
+        z-index: 1000;
       }
 
       ez-post-preview {
@@ -63,6 +64,11 @@
       }
     });
 
-    isotope.load({"Blog":"on", "Deck":"on", "Photography":"on", "Writing":"on"});
+    isotope.load({
+      "Blog":"on",
+      "Deck":"on",
+      "Photography":"on",
+      "Writing":"on"
+    });
   </script>
 </html>
