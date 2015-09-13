@@ -1,8 +1,10 @@
-<script src="vendors/jquery.min.js"></script>
-<script src="vendors/velocity.min.js"></script>
-<script src="vendors/webcomponents-lite.min.js"></script>
-<script src="vendors/handlebars.runtime.min.js"></script>
-<script src="vendors/imagesloaded.pkgd.min.js"></script>
+<link rel="import" href="vendors/reset.html">
+<link rel="import" href="vendors/jquery.min.html"></script>
+<link rel="import" href="vendors/velocity.min.html"></script>
+<link rel="import" href="vendors/velocity.ui.min.html"></script>
+<link rel="import" href="vendors/webcomponents-lite.min.html"></script>
+<link rel="import" href="vendors/handlebars.runtime.min.html"></script>
+<link rel="import" href="vendors/imagesloaded.pkgd.min.html"></script>
 ez-header
 ez-isotope
 ez-logo

@@ -79,17 +79,6 @@ module ez {
       });
     }
 
-    public hide(): void {
-      $(this._element).
-        velocity({ opacity: 0 }, { duration: 500 }).
-        velocity({ display: "none" }, { delay: 500 });
-    }
-
-    public show(): void {
-      $(this._element).
-        velocity({ opacity: 1 }, { display: "block" })
-    }
-
     private _createTags(tags: Array<string>) {
       this._$tags.html('');
       for (var i = 0; i < tags.length; i++) {
@@ -115,8 +104,6 @@ module ez {
     tags: string;
     type: string;
     load(model: PostPreviewModel): void;
-    hide(): void;
-    show(): void;
   }
 
   if (!ez.registered('ez-post-preview'))

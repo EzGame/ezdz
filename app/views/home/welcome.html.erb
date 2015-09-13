@@ -4,8 +4,6 @@
     <link rel="import" href="/web/components.html">
     <style>
       html, body {
-        display: flex;
-        flex-flow: column;
         height: 100%;
         margin: 0;
         overflow: hidden;
@@ -21,20 +19,24 @@
 
       ez-isotope {
         box-sizing: border-box;
-        flex: 0 1 90px;
-        height: 90px !important;
+        height: 90px;
         margin: 0 auto;
-        padding-top: 63px;
+        padding-top: 66px;
         width: 700px;
       }
 
-      #container {
+      #main {
         background: #f7f7f7;
         border-top: 1px solid #ccc;
-        display: block;
-        flex: 1 1 auto;
-        left: 0px;
+        position: absolute;
+        top: 90px;
+        bottom: 0;
         overflow: scroll;
+        width: 100%;
+      }
+
+      #container {
+        left: 0px;
         padding: 5px;
         position: relative;
         right: 0px;
@@ -48,10 +50,11 @@
     </style>
   </head>
   <body>
+    <ez-logo></ez-logo>
     <ez-server></ez-server>
     <ez-isotope target='#container' selector='type'></ez-isotope>
-    <ez-logo></ez-logo>
-    <div id="container">
+    <div id="main">
+      <div id="container"></div>
     </div>
   </body>
   <script>
@@ -103,6 +106,10 @@
         post.load(data[i]);
         container.appendChild(post);
       }
+
+      $('ez-post-preview').velocity(
+        "transition.slideLeftIn",
+        { stagger: 250 });
     }
   </script>
 </html>

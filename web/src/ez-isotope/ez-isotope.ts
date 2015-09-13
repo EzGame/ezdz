@@ -66,27 +66,29 @@ module ez {
           var children = document.querySelectorAll(_this.target + ' > *');
           for (var i = 0; i < children.length; i++) {
             var child: any = children[i];
+            var hide = []
             if (child.getAttribute(selector).toUpperCase() ==
                     this.textContent.toUpperCase()) {
-              if (typeof child.hide === 'function') child.hide();
-              else $(child).hide(300);
+              hide.push(child);
               delta--;
             }
           }
+          $(hide).velocity("transition.slideLeftOut", { stagger: 250 });
         } else {
           this.setAttribute('status', 'on');
           _this._turn('on', this);
 
           var children = document.querySelectorAll(_this.target + ' > *');
+          var show = []
           for (var i = 0; i < children.length; i++) {
             var child: any = children[i];
             if (child.getAttribute(selector).toUpperCase() ==
                     this.textContent.toUpperCase()) {
-              if (typeof child.show === 'function') child.show();
-              else $(child).show(300);
+              show.push(child)
               delta++;
             }
           }
+          $(show).velocity("transition.slideLeftIn", { stagger: 250 });
         }
 
         // Callback on change
