@@ -100,22 +100,22 @@ function makeOne(source) {
   console.log(ext);
   switch(ext) {
     case 'ts':
-      var outfile = dst(tsfile, '.ts');
-      exec(EXECPATH + '/tsc ' + '-t ES5 '+ tsfile +' -out '+ outfile);
+      var outfile = dst(source, '.ts');
+      exec(EXECPATH + '/tsc ' + '-t ES5 '+ source +' -out '+ outfile);
       break;
     case 'handlebars':
-      var outfile = dst(hbfile, '.handlebars');
-      exec(EXECPATH + '/handlebars ' + hbfile +' -f '+ outfile);
+      var outfile = dst(source, '.handlebars');
+      exec(EXECPATH + '/handlebars ' + source +' -f '+ outfile);
       break;
     case 'html':
-      var outfile = dst(html, '.html');
-      exec('cp ' + html + ' ' + outfile);
+      var outfile = dst(source, '.html');
+      exec('cp ' + source + ' ' + outfile);
       break;
     case 'scss':
-      var outfile = dst(safile, '.scss');
+      var outfile = dst(source, '.scss');
       var mini = '--output-style compressed';
       exec(EXECPATH + '/node-sass ' +
-        '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile);
+        '--sourcemap=none '+ mini +' '+ source +' --output '+ outfile);
       break;
     case 'test.html':
       exec('cp '+source+' public/web/tests/');
