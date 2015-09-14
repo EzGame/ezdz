@@ -1,6 +1,5 @@
 Overview
 ========
-WIP
 EZDZ.io is the personal website created for and by [David Zhang]
 (https://github.com/ezdzdev)
 
@@ -23,6 +22,12 @@ ruby 2.2.1
 rails 4.2.0
 npm 2.1.6
 
+
+Commands
+========
+Run make node
+
+    npm run start
 
 Setup
 =====
