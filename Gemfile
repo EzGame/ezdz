@@ -23,5 +23,6 @@ end
 
 group :production do
   gem 'puma'                # Use Puma over unicorn for concurrent requests
-  gem 'pg'                  # Use mysql as database
+  gem 'pg'                  # Use mysql as database on heroku
+  gem 'rails_12factor'      # So logs can work on heroku
 end
