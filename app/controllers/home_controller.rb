@@ -6,7 +6,7 @@ class HomeController < ApplicationController
   end
 
   def welcome
-    # Shows our home page
+    Rails.logger.info(request.subdomain)
   end
 
   def show

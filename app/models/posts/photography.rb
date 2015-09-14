@@ -1,4 +1,4 @@
-class Album < Post
+class Photography < Post
   validate :_meta_data_validity
 
   private

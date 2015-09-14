@@ -28,5 +28,6 @@ module Ezdz
 
     # Serve static assets
     config.serve_static_files = true
+    config.action_dispatch.tld_length = 2
   end
 end

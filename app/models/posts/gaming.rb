@@ -1,4 +1,4 @@
-class Deck < Post
+class Gaming < Post
   validate :_meta_data_validity
   private
 

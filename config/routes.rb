@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   # High level entry routes
-  root to: 'home#welcome'
-  get '/p/:hashid', to: 'home#show'
-  get '/about', to: 'home#about'
+  root to: 'home#welcome', constraints: { subdomain: /.+/ }
+  get '/p/:hashid', to: 'home#show', constraints: { subdomain: /.+/ }
+  get '/about', to: 'home#about', constraints: { subdomain: /.+/ }
 
   # API routes for json data
   scope '/api' do
@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     get '/', to: 'posts#index'
     resources :photos
     resources :blogs, controller: "posts", type: "Blog", except: :index
-    resources :albums, controller: "posts", type: "Album", except: :index
-    resources :decks, controller: "posts", type: "Deck", except: :index
-    resources :narratives, controller: "posts", type: "Narrative", except: :index
+    resources :photography, controller: "posts", type: "Photography", except: :index
+    resources :gaming, controller: "posts", type: "Gaming", except: :index
+    resources :writing, controller: "posts", type: "Writing", except: :index
   end
 end
