@@ -64,16 +64,21 @@ module ez {
           _this._turn('off', this);
 
           var children = document.querySelectorAll(_this.target + ' > *');
-          for (var i = 0; i < children.length; i++) {
+          var hide = []
+          for (var i = children.length - 1; i >= 0; i--) {
             var child: any = children[i];
-            var hide = []
             if (child.getAttribute(selector).toUpperCase() ==
                     this.textContent.toUpperCase()) {
               hide.push(child);
               delta--;
             }
           }
-          $(hide).velocity("transition.slideLeftOut", { stagger: 250 });
+          $(hide).velocity("transition.slideRightOut", {
+            stagger: 250, complete: () => {
+              if (typeof _this.onChange === 'function')
+                _this.onChange(delta);
+            }
+          });
         } else {
           this.setAttribute('status', 'on');
           _this._turn('on', this);
@@ -88,12 +93,13 @@ module ez {
               delta++;
             }
           }
-          $(show).velocity("transition.slideLeftIn", { stagger: 250 });
+          $(show).velocity("transition.slideLeftIn", {
+            stagger: 250, complete: () => {
+              if (typeof _this.onChange === 'function')
+                _this.onChange(delta);
+            }
+          });
         }
-
-        // Callback on change
-        if (typeof _this.onChange === 'function')
-          _this.onChange(delta);
       });
     }
 

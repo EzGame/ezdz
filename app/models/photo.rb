@@ -12,7 +12,12 @@ class Photo < ActiveRecord::Base
   before_destroy :_remove_host_img
 
   def self.image_host
-    credentials = YAML.load(File.read('config/imgur.yml'))
+    if Rails::env == 'development'
+      credentials = YAML.load(File.read('config/imgur.yml'))
+    else
+      credentials = ENV
+    end
+
     Imgurapi::Session.new(
       client_id: credentials['client_id'],
       client_secret: credentials['client_secret'],
@@ -26,10 +31,28 @@ class Photo < ActiveRecord::Base
   end
 
   def self.create_with_file!( file_path )
-    image_optim = ImageOptim.new(allow_lossy: true)
-    image_optim.optimize_image!(file_path)
+    image = MiniMagick::Image.open(file_path)
+    image.format "png"
 
-    img = self.upload(file_path)
+    # resize
+    sizes = image.dimensions
+    if 1.0*sizes[0]/sizes[1] < 1.5
+      image.resize "750x#{(750.0*sizes[1]/sizes[0]).round}"
+    else
+      image.resize "#{(500.0*sizes[0]/sizes[1]).round}x500"
+    end
+
+    # crop
+    sizes = image.dimensions
+    if sizes[0] > 750
+      w_offset = 1.0 * (sizes[0] - 750) / 2
+      image.shave "#{w_offset.to_i}x0"
+    elsif sizes[1] > 500
+      h_offset = 1.0 * (sizes[1] - 500) / 2
+      image.shave "0x#{h_offset.to_i}"
+    end
+
+    img = self.upload(image.path)
     self.create!({
       url: img.link,
       imgur_hash: img.id,

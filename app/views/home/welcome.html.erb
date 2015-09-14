@@ -17,6 +17,14 @@
         z-index: 1000;
       }
 
+      ez-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+
       ez-isotope {
         box-sizing: border-box;
         height: 90px;
@@ -43,6 +51,7 @@
       }
 
       ez-post-preview {
+        display: none;
         width: 700px;
         height: 250px;
         margin: 0 auto 10px auto;
@@ -50,8 +59,12 @@
     </style>
   </head>
   <body>
+    <!-- utility components -->
     <ez-logo></ez-logo>
     <ez-server></ez-server>
+    <ez-spinner></ez-spinner>
+
+    <!-- content components -->
     <ez-isotope target='#container' selector='type'></ez-isotope>
     <div id="main">
       <div id="container"></div>
@@ -60,6 +73,7 @@
   <script>
     var body = document.querySelector("body");
     var server = document.querySelector("ez-server");
+    var spinner = document.querySelector("ez-spinner");
     var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
 
@@ -78,23 +92,35 @@
     });
 
     isotope.onChange = function(delta) {
-      console.log(delta);
-      var newOffset = params.limit + params.offset;
-      var newLimit = params.limit + delta;
-
-      if (newLimit > 0) {
-        // look for more from server
-      } else {
-        // remove?
-      }
+      params.categories = this.categories();
+      index(params);
     }
+
+    /* Configure spinner */
+    spinner.onStop = function() {
+      $('ez-post-preview').velocity(
+        "transition.slideLeftIn",
+        { stagger: 250 }
+      );
+    };
 
     /* Load content */
     index(params);
 
     /* Server index call */
     function index(params) {
+      container.innerHTML = '';
+      spinner.start();
       server.index(params).then(function(response) {
+        appendChildren(response.data);
+      });
+    }
+
+    /* Server search call */
+    function search(params) {
+      container.innerHTML = '';
+      spinner.start();
+      server.search(params).then(function(response) {
         appendChildren(response.data);
       });
     }
@@ -107,9 +133,9 @@
         container.appendChild(post);
       }
 
-      $('ez-post-preview').velocity(
-        "transition.slideLeftIn",
-        { stagger: 250 });
+      imagesLoaded('#container', function() {
+        spinner.stop();
+      });
     }
   </script>
 </html>
