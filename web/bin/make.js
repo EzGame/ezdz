@@ -32,8 +32,8 @@ if (cmd == 'prod') {
   log('Cleaning public/web'.underline);
   clean();
 } else {
-  log('Making all'.underline);
-  make();
+  log(('Making '+cmd).underline);
+  makeOne(cmd);
 }
 
 /*
@@ -66,10 +66,6 @@ function make(sources, minify) {
     if (regex.test(tsfile)) return true;
     var outfile = dst(tsfile, '.ts');
     exec(EXECPATH + '/tsc ' + '-t ES5 '+ tsfile +' -out '+ outfile);
-    // if (minify) {
-    //   var minfile = outfile.replace(/\.js$/,'.min.js')
-    //   exec(EXECPATH + '/minify ' + '--output '+  +' '+ outfile);
-    // }
   });
 
   log('>> Compiling handlebars');
@@ -97,6 +93,35 @@ function make(sources, minify) {
 
   log('>> Copying tests');
   exec('cp -r web/tests public/web/');
+}
+
+function makeOne(source) {
+  var ext = source.split('.').slice(1).join('.');
+  console.log(ext);
+  switch(ext) {
+    case 'ts':
+      var outfile = dst(tsfile, '.ts');
+      exec(EXECPATH + '/tsc ' + '-t ES5 '+ tsfile +' -out '+ outfile);
+      break;
+    case 'handlebars':
+      var outfile = dst(hbfile, '.handlebars');
+      exec(EXECPATH + '/handlebars ' + hbfile +' -f '+ outfile);
+      break;
+    case 'html':
+      var outfile = dst(html, '.html');
+      exec('cp ' + html + ' ' + outfile);
+      break;
+    case 'scss':
+      var outfile = dst(safile, '.scss');
+      var mini = '--output-style compressed';
+      exec(EXECPATH + '/node-sass ' +
+        '--sourcemap=none '+ mini +' '+ safile +' --output '+ outfile);
+      break;
+    case 'test.html':
+      exec('cp '+source+' public/web/tests/');
+      break;
+    default:
+  }
 }
 
 /*

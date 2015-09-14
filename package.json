@@ -18,7 +18,8 @@
     "shelljs": "0.5.3",
     "colors": "1.1.2",
     "glob": "5.0.14",
-    "fs": "0.0.2"
+    "fs": "0.0.2",
+    "filewatcher": "3.0.0"
   },
   "scripts": {
     "start": "node web/bin/watch.js",
