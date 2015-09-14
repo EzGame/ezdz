@@ -11,16 +11,10 @@ Front End File Structure
 ========================
 EZDZ.io front end technologies
 
-    /web            
-      /lib            # Libraries that are used by components
+    /web
+      /vendors        # Libraries that are used by components
       /src            # Source code and assets that are compiled to /lib.
       /tests          # Application tests.
-      
-To compile assets, run rake web:compile.
-  
-    /public
-      /lib            
-      /tests
 
 
 Requires
@@ -28,21 +22,27 @@ Requires
 ruby 2.2.1
 rails 4.2.0
 npm 2.1.6
-vulcanize
 
 
 Setup
 =====
+Heroku Build Packs:
 
+    heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-nodejs
+    heroku buildpacks:add -i 2 https://github.com/heroku/heroku-buildpack-ruby
 
-TODO
-====
-Clean up code for a temp commit
-Finish off web components blog
-Finish off Blog
-Import in a couple blogs
-Create photo
-Import photos
-import tools repo
-Create home page
-Create logins
+Setup subdomains:
+
+    blog.ezdz.io         ezdz.herokuapp.com
+    ezdz.io              ezdz.herokuapp.com
+    gaming.ezdz.io       ezdz.herokuapp.com
+    photography.ezdz.io  ezdz.herokuapp.com
+    story.ezdz.io        ezdz.herokuapp.com
+    www.ezdz.io          ezdz.herokuapp.com
+
+Setup Imgur API credentials:
+
+    heroku config:add imgur_access_token=_
+    heroku config:add imgur_client_id=_
+    heroku config:add imgur_client_secret=_
+    heroku config:add imgur_refresh_token=_
