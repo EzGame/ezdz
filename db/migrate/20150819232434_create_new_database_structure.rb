@@ -5,7 +5,7 @@ class CreateNewDatabaseStructure < ActiveRecord::Migration
       t.column :title, :string,         null: false
       t.column :type, :string,          null: false
       t.column :tags, :string
-      t.column :meta, :text,            limit: 4294967295
+      t.column :meta, :text,            limit: 536870912
       t.timestamps                      null: false
     end
 

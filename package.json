@@ -26,6 +26,7 @@
     "build": "node web/bin/make.js prod components",
     "make": "node web/bin/make.js",
     "preinstall": "npm install --ignore-scripts",
-    "postinstall": "npm update && npm run build"
+    "postinstall": "npm update && npm run build",
+    "deploy": "git push heroku master && heroku run rake db:migrate"
   }
 }

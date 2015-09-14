@@ -33,7 +33,7 @@ class ApiController < ActionController::Base
   def index
     limit = _get_param(:limit, 'Fixnum', 10)
     offset = _get_param(:offset, 'Fixnum', 0)
-    cats = _get_param(:categories, 'String', "BLOG,DECK,PHOTOGRAPHY,WRITING");
+    cats = _get_param(:categories, 'String', "BLOG,GAMING,PHOTOGRAPHY,WRITING");
 
     categories = cats.split(',').map(&:downcase)
     results = Post.all.
