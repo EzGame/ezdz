@@ -55,7 +55,7 @@ module ez {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
           url: this._constructUrl('index', options),
-          success: function(r) { resolve(r); },
+          success: function(r) { resolve(r.data); },
           error: function(e) { reject(e); }
         })
       })
@@ -75,7 +75,7 @@ module ez {
       return new Promise<any>((resolve, reject) => {
         $.ajax({
           url: url,
-          success: function(r) { resolve(r); },
+          success: function(r) { resolve(r.data); },
           error: function(e) { reject(e); }
         })
       });

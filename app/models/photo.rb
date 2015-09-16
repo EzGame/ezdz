@@ -19,10 +19,10 @@ class Photo < ActiveRecord::Base
     end
 
     Imgurapi::Session.new(
-      client_id: credentials['client_id'],
-      client_secret: credentials['client_secret'],
-      refresh_token: credentials['refresh_token'],
-      access_token: credentials['access_token']
+      client_id: credentials['imgur_client_id'],
+      client_secret: credentials['imgur_client_secret'],
+      refresh_token: credentials['imgur_refresh_token'],
+      access_token: credentials['imgur_access_token']
     )
   end
 

@@ -58,47 +58,49 @@ module ez {
       $('[name=c]').on('click', function() {
         var delta = 0;
         var selector = 'data-' + _this.selector;
+        var animation = "";
+        var targets = [];
 
         if (this.getAttribute('status') == 'on') {
           this.setAttribute('status', 'off');
           _this._turn('off', this);
+          animation = "transition.slideRightOut";
 
           var children = document.querySelectorAll(_this.target + ' > *');
-          var hide = []
           for (var i = children.length - 1; i >= 0; i--) {
             var child: any = children[i];
             if (child.getAttribute(selector).toUpperCase() ==
                     this.textContent.toUpperCase()) {
-              hide.push(child);
+              targets.push(child);
               delta--;
             }
           }
-          $(hide).velocity("transition.slideRightOut", {
+        } else {
+          this.setAttribute('status', 'on');
+          _this._turn('on', this);
+          animation = "transition.slideLeftIn";
+
+          var children = document.querySelectorAll(_this.target + ' > *');
+          for (var i = 0; i < children.length; i++) {
+            var child: any = children[i];
+            if (child.getAttribute(selector).toUpperCase() ==
+                    this.textContent.toUpperCase()) {
+              targets.push(child)
+              delta++;
+            }
+          }
+        }
+
+        if (targets.length > 0) {
+          $(targets).velocity(animation, {
             stagger: 250, complete: () => {
               if (typeof _this.onChange === 'function')
                 _this.onChange(delta);
             }
           });
         } else {
-          this.setAttribute('status', 'on');
-          _this._turn('on', this);
-
-          var children = document.querySelectorAll(_this.target + ' > *');
-          var show = []
-          for (var i = 0; i < children.length; i++) {
-            var child: any = children[i];
-            if (child.getAttribute(selector).toUpperCase() ==
-                    this.textContent.toUpperCase()) {
-              show.push(child)
-              delta++;
-            }
-          }
-          $(show).velocity("transition.slideLeftIn", {
-            stagger: 250, complete: () => {
-              if (typeof _this.onChange === 'function')
-                _this.onChange(delta);
-            }
-          });
+          if (typeof _this.onChange === 'function')
+            _this.onChange(delta);
         }
       });
     }

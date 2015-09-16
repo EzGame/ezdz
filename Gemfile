@@ -6,6 +6,7 @@ gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
 gem 'jbuilder', '2.0'       # https://github.com/rails/jbuilder
 gem 'imgurapi'              # Imgur as image host
 gem 'mini_magick', '4.2.9'  # Some magick imaging
+gem 'rspotify'              # Spotify API gem
 gem 'rack', '~> 1.6.4'
 
 ### Middleware Gems ###

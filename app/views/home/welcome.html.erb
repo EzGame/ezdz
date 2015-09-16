@@ -65,10 +65,12 @@
     <ez-spinner></ez-spinner>
 
     <!-- content components -->
-    <ez-isotope target='#container' selector='type'></ez-isotope>
+    <ez-isotope target='#container'
+                selector='type'></ez-isotope>
     <div id="main">
       <div id="container"></div>
     </div>
+    <ez-spotify></ez-spotify>
   </body>
   <script>
     var body = document.querySelector("body");
@@ -76,12 +78,6 @@
     var spinner = document.querySelector("ez-spinner");
     var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
-
-    var params = {
-      limit: 5,
-      offset: 0,
-      categories: isotope.categories().join(',')
-    };
 
     /* Configure isotope */
     isotope.load({
@@ -105,6 +101,12 @@
     };
 
     /* Load content */
+    var params = {
+      limit: 5,
+      offset: 0,
+      categories: isotope.categories().join(',')
+    };
+
     index(params);
 
     /* Server index call */
@@ -113,6 +115,7 @@
       spinner.start();
       server.index(params).then(function(response) {
         appendChildren(response.data);
+        params.offset = response.max_id;
       });
     }
 
@@ -122,6 +125,7 @@
       spinner.start();
       server.search(params).then(function(response) {
         appendChildren(response.data);
+        params.offset = response.max_id;
       });
     }
 

@@ -1,0 +1,63 @@
+ez-spotify {
+  bottom: 0;
+  display: block;
+  font-family: ars-maquette-medium, sans-serif;
+  height: 30px;
+  margin: 0 10px;
+  position: absolute;
+  right: 0;
+  width: 210px;
+
+  [name=container] {
+
+    [name=show] {
+      background: #282828;
+      color: white;
+      cursor: pointer;
+      font-size: 14px;
+      line-height: 30px;
+      position: relative;
+      text-align: center;
+      z-index: 100;
+    }
+
+    [name=main] {
+      background: white;
+      bottom: 30px;
+      height: 290px;
+      position: absolute;
+      width: 210px;
+      z-index: 99;
+
+      ez-spinner {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 100;
+      }
+
+      iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+      }
+
+      [name=playlist] {
+        border-bottom: 1px solid #f7f7f7;
+        box-sizing: border-box;
+        cursor: pointer;
+        font-size: 20px;
+        height: 33%;
+        line-height: 20px;
+        padding: 30px;
+        text-align: center;
+        transition: background-color 0.3s;
+
+        &:hover {
+          background-color: #888888;
+        }
+      }
+    }
+  }
+}

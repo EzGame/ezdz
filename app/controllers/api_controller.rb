@@ -1,13 +1,14 @@
 require 'api_exception'
 
 class ApiController < ActionController::Base
+  include SpotifyHelper
+
   rescue_from ApiException::BadRequest do |exception|
     render json: {
       :status => 400,
       :message => exception.message
     }
   end
-
 
   # Search entire database and returns a light model
   # @param q - the search term, tags, title, id
@@ -22,8 +23,16 @@ class ApiController < ActionController::Base
     sort = _get_param(:sort, 'String', 'created_at desc')
 
     results = (query == 'all') ? Post.all : Post.search(query)
-    results = results.limit(limit).order(sort).offset(offset)
-    render json: _respond_with(results.preview)
+    results = results.
+      limit(limit).
+      where('id >= ?', offset).
+      order(sort)
+    max_id = results.maximum(:id)
+
+    render json: _respond_with({
+      data: results.preview,
+      max_id: max_id
+    })
   end
 
 
@@ -33,16 +42,20 @@ class ApiController < ActionController::Base
   def index
     limit = _get_param(:limit, 'Fixnum', 10)
     offset = _get_param(:offset, 'Fixnum', 0)
-    cats = _get_param(:categories, 'String', "BLOG,GAMING,PHOTOGRAPHY,WRITING");
+    cats = _get_param(:categories, 'String', '');
 
     categories = cats.split(',').map(&:downcase)
     results = Post.all.
       limit(limit).
-      offset(offset).
+      where('id >= ?', offset).
       where(type: categories).
       order('created_at desc')
+    max_id = results.maximum(:id)
 
-    render json: _respond_with(results.preview)
+    render json: _respond_with({
+      data: results.preview,
+      max_id: max_id
+    })
   end
 
 
@@ -92,9 +105,9 @@ class ApiController < ActionController::Base
       end
 
       return {
-          :status => status,
-          :message => message,
-          :data => results
+        :status => status,
+        :message => message,
+        :data => results
       }
     end
 end
