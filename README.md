@@ -18,7 +18,7 @@ EZDZ.io front end technologies
 
 Requires
 ========
-ruby 2.2.1
+ruby 2.2.0
 rails 4.2.0
 npm 2.1.6
 
