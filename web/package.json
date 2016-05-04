@@ -1,0 +1,33 @@
+{
+  "name": "ezdz.io",
+  "version": "1.0.0",
+  "description": "Web assets for ezdz.io",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "release": "NODE_ENV=production webpack",
+    "dev": "webpack",
+    "watch": "webpack --progress --colors --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://github.com/ezdzdev/ezdz#readme",
+  "dependencies": {
+    "angular": "^1.5.5",
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^2.1.3",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "html-webpack-plugin": "^2.16.1",
+    "raw-loader": "^0.5.1",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.1.2",
+    "babel-plugin-react-html-attrs": "^2.0.0",
+    "babel-plugin-transform-class-properties": "^6.3.13",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.3.13",
+    "babel-preset-react": "^6.3.13",
+    "babel-preset-stage-0": "^6.3.13",
+    "webpack": "^1.12.9"
+  }
+}
