@@ -13,7 +13,7 @@
   "license": "ISC",
   "homepage": "https://github.com/ezdzdev/ezdz#readme",
   "dependencies": {
-    "angular": "^1.5.5",
+    "angular": "^1.5.5"
   },
   "devDependencies": {
     "copy-webpack-plugin": "^2.1.3",
