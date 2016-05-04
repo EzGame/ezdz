@@ -44,8 +44,8 @@ ez-post-preview {
                 transform: translateY(-50%) translateX(-50%);
       }
 
-      [name=title] {
-        @include font(header, 36px);
+      [name=header] {
+
         display: none;
         left: 0px;
         margin: auto;
@@ -53,15 +53,15 @@ ez-post-preview {
         right: 0px;
         top: 50%;
         z-index: 3;
-      }
 
-      [name=date] {
-        @include font(header, 24px);
-        display: none;
-        left: 5px;
-        position: absolute;
-        top: 5px;
-        z-index: 3;
+        [name=title] {
+          @include font(header, 36px);
+        }
+
+        [name=date] {
+          @include font(header, 18px);
+          margin-top: 5px;
+        }
       }
 
       [name=tags] {

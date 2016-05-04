@@ -25,8 +25,8 @@ class ApiController < ActionController::Base
     results = (query == 'all') ? Post.all : Post.search(query)
     results = results.
       limit(limit).
-      where('id >= ?', offset).
-      order(sort)
+      order(sort).
+      offset(offset)
     max_id = results.maximum(:id)
 
     render json: _respond_with({
@@ -47,15 +47,11 @@ class ApiController < ActionController::Base
     categories = cats.split(',').map(&:downcase)
     results = Post.all.
       limit(limit).
-      where('id >= ?', offset).
       where(type: categories).
-      order('created_at desc')
-    max_id = results.maximum(:id)
+      order('created_at desc').
+      offset(offset)
 
-    render json: _respond_with({
-      data: results.preview,
-      max_id: max_id
-    })
+    render json: _respond_with(results.preview)
   end
 
 

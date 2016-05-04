@@ -19,7 +19,7 @@ module ez {
     private _$container: JQuery;
     private _$cover: JQuery;
     private _$date: JQuery;
-    private _$tags: JQuery
+    private _$header: JQuery
     private _$title: JQuery;
 
     private _entrance: any;
@@ -36,7 +36,7 @@ module ez {
       this._$container = getChild(this._element, '[name=container]');
       this._$cover = getChild(this._element, '[name=cover]');
       this._$date = getChild(this._element, '[name=date]');
-      this._$tags = getChild(this._element, '[name=tags]');
+      this._$header = getChild(this._element, '[name=header]');
       this._$title = getChild(this._element, '[name=title]');
     }
 
@@ -45,11 +45,11 @@ module ez {
     attachedCallback() {
       this._$container.on('mouseenter', () => {
         this._$cover.velocity({ opacity: 0.5 }, 300);
-        this._$title.velocity('fadeIn', 300);
+        this._$header.velocity('fadeIn', 300);
       });
       this._$container.on('mouseleave', () => {
         this._$cover.velocity({ opacity: 1 }, 300);
-        this._$title.velocity('fadeOut', 300);
+        this._$header.velocity('fadeOut', 300);
       });
     }
 
@@ -77,15 +77,6 @@ module ez {
       this._$cover.on('load', () => {
         this._resize();
       });
-    }
-
-    private _createTags(tags: Array<string>) {
-      this._$tags.html('');
-      for (var i = 0; i < tags.length; i++) {
-        var tag = '<a name="tag" href="/?q=' +
-                    tags[i] + '">' + tags[i] + '</a>'
-        this._$tags.append(tag);
-      };
     }
 
     private _resize() {

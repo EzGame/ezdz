@@ -48,12 +48,13 @@
         padding: 5px;
         position: relative;
         right: 0px;
+        margin-bottom: 30px;
       }
 
       ez-post-preview {
         display: none;
         width: 700px;
-        height: 250px;
+        height: 200px;
         margin: 0 auto 10px auto;
       }
     </style>
@@ -78,6 +79,11 @@
     var spinner = document.querySelector("ez-spinner");
     var isotope = document.querySelector("ez-isotope");
     var container = document.querySelector("#container");
+    window['params'] = {
+      limit: 5,
+      offset: 0,
+      categories: "BLOG,GAMING,PHOTOGRAPHY,WRITING"
+    };
 
     /* Configure isotope */
     isotope.load({
@@ -87,59 +93,79 @@
       "Writing":"on"
     });
 
-    isotope.onChange = function(delta) {
-      params.categories = this.categories();
-      index(params);
+    isotope.oncontentchange = function(total) {
+      debugger
+      if (total < 5) {
+        params.categories = isotope.categories().join(',');
+        index();
+      } else {
+        // hide everything over 5
+      }
     }
 
     /* Configure spinner */
     spinner.onStop = function() {
-      $('ez-post-preview').velocity(
-        "transition.slideLeftIn",
-        { stagger: 250 }
-      );
+      $('ez-post-preview.new').velocity("transition.slideLeftIn", {
+        stagger: 250,
+        complete: function() {
+          for (var i = 0; i < this.length; i++) {
+            this[i].className = '';
+          }
+        }
+      });
     };
-
-    /* Load content */
-    var params = {
-      limit: 5,
-      offset: 0,
-      categories: isotope.categories().join(',')
-    };
-
-    index(params);
 
     /* Server index call */
-    function index(params) {
-      container.innerHTML = '';
+    function index() {
       spinner.start();
       server.index(params).then(function(response) {
-        appendChildren(response.data);
-        params.offset = response.max_id;
+        appendChildren(response);
       });
     }
 
+    /* Load more at bottom */
+    $('#main').scroll(function(e) {
+      // if (this.scrollTop >= (this.scrollHeight - this.offsetHeight - 20)) {
+      //   params.offset += params.limit
+      //   index(params);
+      // }
+    });
+
     /* Server search call */
-    function search(params) {
+    function search() {
       container.innerHTML = '';
       spinner.start();
       server.search(params).then(function(response) {
-        appendChildren(response.data);
-        params.offset = response.max_id;
+        appendChildren(response);
       });
     }
 
     /* Append children to container */
     function appendChildren(data) {
       for (var i = 0; i < data.length; i++) {
-        var post = document.createElement("ez-post-preview");
-        post.load(data[i]);
-        container.appendChild(post);
+        if ($('#' + data[i].id).length == 0) {
+          var post = document.createElement("ez-post-preview");
+          post.className += 'new';
+          post.load(data[i]);
+          if (i == 0) {
+            container.appendChild(post)
+          } else {
+            container.insertBefore(post,
+              $('#' + data[i].id)[0]
+            );
+          }
+        }
       }
 
       imagesLoaded('#container', function() {
-        spinner.stop();
+        setTimeout(function() { spinner.stop() }, 200);
       });
     }
+
+    /* Start */
+    index();
+
+    /* Two loads, one looking for more, one refiltering */
+    /* TWO: more, logic on server end */
   </script>
 </html>

@@ -8,7 +8,7 @@ module ez {
 
     private _$container: JQuery;
     private _$controls: JQuery;
-    public onChange: Function;
+    public oncontentchange: Function;
 
     createdCallback() {
       if (!this._element)
@@ -56,52 +56,34 @@ module ez {
       // manual lexical scoping says lol to code readability
       var _this = this;
       $('[name=c]').on('click', function() {
-        var delta = 0;
-        var selector = 'data-' + _this.selector;
-        var animation = "";
+        var children = document.querySelectorAll(_this.target + ' > *');
         var targets = [];
+        var total = 0;
+        var selector = 'data-' + _this.selector;
 
-        if (this.getAttribute('status') == 'on') {
-          this.setAttribute('status', 'off');
-          _this._turn('off', this);
-          animation = "transition.slideRightOut";
+        _this._turn(
+          (this.getAttribute('status') == 'on') ? 'off' : 'on', this);
 
-          var children = document.querySelectorAll(_this.target + ' > *');
-          for (var i = children.length - 1; i >= 0; i--) {
-            var child: any = children[i];
-            if (child.getAttribute(selector).toUpperCase() ==
-                    this.textContent.toUpperCase()) {
-              targets.push(child);
-              delta--;
-            }
-          }
-        } else {
-          this.setAttribute('status', 'on');
-          _this._turn('on', this);
-          animation = "transition.slideLeftIn";
-
-          var children = document.querySelectorAll(_this.target + ' > *');
-          for (var i = 0; i < children.length; i++) {
-            var child: any = children[i];
-            if (child.getAttribute(selector).toUpperCase() ==
-                    this.textContent.toUpperCase()) {
-              targets.push(child)
-              delta++;
-            }
-          }
+        for (var i = 0; i < children.length; i++) {
+          var child: any = children[i];
+          var match = _this._strCmp(
+            child.getAttribute(selector), this.textContent);
+          if (match) { targets.push(child); } else { total++; }
         }
 
-        if (targets.length > 0) {
-          $(targets).velocity(animation, {
-            stagger: 250, complete: () => {
-              if (typeof _this.onChange === 'function')
-                _this.onChange(delta);
+        // Closure
+        var onFinish: jquery.velocity.ElementCallback =
+          function(elements: NodeListOf<HTMLElement>): void {
+            debugger;
+            if (typeof _this.oncontentchange == 'function') {
+              _this.oncontentchange(targets, this.getAttribute('status'), total);
             }
-          });
-        } else {
-          if (typeof _this.onChange === 'function')
-            _this.onChange(delta);
-        }
+            $(this).remove();
+          }
+
+        $(targets).velocity("transition.slideRightOut", {
+          stagger: 250, complete: onFinish
+        });
       });
     }
 
@@ -117,6 +99,7 @@ module ez {
 
     // use velocity to animate
     private _turn(status: string, el: HTMLElement) {
+      el.setAttribute('status', status);
       if (status == 'on') {
         $(el).velocity({ color: '#000' }, 300);
         $(el).children().velocity({ width: '100%' }, 300);
@@ -125,12 +108,16 @@ module ez {
         $(el).children().velocity({ width: '0%' }, 300);
       }
     }
+
+    private _strCmp(str1: string, str2: string) {
+      return str1.toUpperCase() == str2.toUpperCase();
+    }
   }
 
   export interface EzIsotope extends HTMLElement {
     target: string;
     selector: string;
-    onChange(delta: number): Function;
+    oncontentchange( total: number ): Function;
     load(categories: Array<string>): void;
     categories(): Array<string>;
   }
