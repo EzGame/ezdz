@@ -1,5 +1,5 @@
 source 'https://rubygems.org'
-ruby '2.2.1'
+ruby '2.2.0'
 
 ### Back End Gems ###
 gem 'hashids',  '1.0.2'     # Hashids is for bidirectional hashing
@@ -8,6 +8,7 @@ gem 'imgurapi'              # Imgur as image host
 gem 'mini_magick', '4.2.9'  # Some magick imaging
 gem 'rspotify'              # Spotify API gem
 gem 'rack', '~> 1.6.4'
+gem 'mysql2', '~> 0.3.18'   # Use mysql as databsae
 
 ### Middleware Gems ###
 gem 'rails', '4.2.0'        # Bundle edge Rails instead
@@ -19,7 +20,6 @@ group :development, :test do
   gem 'byebug'              # Server debugger
   gem 'spring'              # Spring speeds up development
   gem 'awesome_print'       # Get some color into the console
-  gem 'mysql2'              # Use mysql as database
 end
 
 group :production do

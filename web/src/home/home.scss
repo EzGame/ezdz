@@ -1,0 +1,31 @@
+.background {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  overflow: hidden;
+
+  // Background positioning
+  background-color: transparent;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.sidebar {
+  width: 350px;
+  height: 100%;
+  padding: 25px;
+  box-sizing: border-box;
+
+  *::-webkit-scrollbar {
+    display: none;
+  }
+
+  div.selected {
+    font-size: 30px;
+  }
+}
+

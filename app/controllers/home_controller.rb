@@ -7,6 +7,7 @@ class HomeController < ApplicationController
 
   def welcome
     Rails.logger.info(request.subdomain)
+    render :file => 'public/index.html', :layout => false
   end
 
   def show

@@ -11,21 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150608025427) do
-
-  create_table "albums", force: :cascade do |t|
-    t.string   "title",      limit: 255, null: false
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
-  end
-
-  create_table "blogs", force: :cascade do |t|
-    t.string   "title",      limit: 255,        null: false
-    t.text     "body",       limit: 4294967295
-    t.string   "tags",       limit: 255
-    t.datetime "created_at",                    null: false
-    t.datetime "updated_at",                    null: false
-  end
+ActiveRecord::Schema.define(version: 20150827203847) do
 
   create_table "photos", force: :cascade do |t|
     t.string   "url",          limit: 255, null: false
@@ -34,8 +20,33 @@ ActiveRecord::Schema.define(version: 20150608025427) do
     t.string   "exhibit_type", limit: 255
     t.datetime "created_at",               null: false
     t.datetime "updated_at",               null: false
+    t.string   "imgur_hash",   limit: 255, null: false
+    t.string   "imgur_delete", limit: 255, null: false
   end
 
   add_index "photos", ["exhibit_type", "exhibit_id"], name: "index_photos_on_exhibit_type_and_exhibit_id", using: :btree
+
+  create_table "post_tags", force: :cascade do |t|
+    t.integer "post_id", limit: 4
+    t.integer "tag_id",  limit: 4
+  end
+
+  add_index "post_tags", ["post_id"], name: "index_post_tags_on_post_id", using: :btree
+  add_index "post_tags", ["tag_id"], name: "index_post_tags_on_tag_id", using: :btree
+
+  create_table "posts", force: :cascade do |t|
+    t.string   "hashid",     limit: 255,        null: false
+    t.string   "title",      limit: 255,        null: false
+    t.string   "type",       limit: 255,        null: false
+    t.text     "meta",       limit: 4294967295
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+  end
+
+  add_index "posts", ["hashid"], name: "index_posts_on_hashid", using: :btree
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name", limit: 255, null: false
+  end
 
 end
