@@ -8,12 +8,9 @@ Ruby on Rails & Web Components
 
 Front End File Structure
 ========================
-EZDZ.io front end technologies
+EZDZ.io front end technologies uses webpack & angular
 
-    /web
-      /vendors        # Libraries that are used by components
-      /src            # Source code and assets that are compiled to /lib.
-      /tests          # Application tests.
+    cd web/
 
 
 Requires
@@ -22,12 +19,6 @@ ruby 2.2.0
 rails 4.2.0
 npm 2.1.6
 
-
-Commands
-========
-Run make node
-
-    npm run start
 
 Setup
 =====

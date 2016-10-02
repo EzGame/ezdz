@@ -1,5 +1,6 @@
-<div class="scrollable" style="height: 100%; overflow: scroll;">
-  <div ng-repeat="li in scrollItems"
+<div class="scrollable" style="position: absolute; height: 100%; overflow: scroll;">
+  <div class="scroll-item"
+       ng-repeat="li in scrollItems"
        ng-class="{selected: viewItem == li}">
     {{li}}
   </div>
