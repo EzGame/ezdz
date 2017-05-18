@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
   # High level entry routes
   root to: 'home#welcome'
+
+  # Old routes
   get '/p/:hashid', to: 'home#show'
   get '/about', to: 'home#about'
 

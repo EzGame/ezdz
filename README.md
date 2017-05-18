@@ -1,13 +1,19 @@
 Overview
 ========
 EZDZ.io is the personal website created for and by [David Zhang]
-(https://github.com/ezdzdev)
+(https://github.com/JamDeezy)
 
+
+# Under construction :(
+
+
+
+
+## Old website
 Ruby on Rails & Web Components
 
 
-Front End File Structure
-========================
+##Front End File Structure
 EZDZ.io front end technologies
 
     /web
@@ -16,21 +22,18 @@ EZDZ.io front end technologies
       /tests          # Application tests.
 
 
-Requires
-========
+##Requires
 ruby 2.2.1
 rails 4.2.0
 npm 2.1.6
 
 
-Commands
-========
+##Commands
 Run make node
 
     npm run start
 
-Setup
-=====
+##Setup
 Heroku Build Packs:
 
     heroku buildpacks:add -i 1 https://github.com/heroku/heroku-buildpack-nodejs

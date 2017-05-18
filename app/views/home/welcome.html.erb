@@ -2,6 +2,7 @@
   <head>
     <%= render template: 'templates/_meta' -%>
     <link rel="import" href="/web/components.html">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
     <style>
       html, body {
         height: 100%;
@@ -63,13 +64,14 @@
     <!-- utility components -->
     <ez-logo></ez-logo>
     <ez-server></ez-server>
-    <ez-spinner></ez-spinner>
 
     <!-- content components -->
     <ez-isotope target='#container'
                 selector='type'></ez-isotope>
     <div id="main">
       <div id="container"></div>
+
+      <%= render partial: "construction" %>
     </div>
     <ez-spotify></ez-spotify>
   </body>
@@ -94,7 +96,6 @@
     });
 
     isotope.oncontentchange = function(total) {
-      debugger
       if (total < 5) {
         params.categories = isotope.categories().join(',');
         index();

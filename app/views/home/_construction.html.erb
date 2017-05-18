@@ -1,0 +1,37 @@
+<!--
+  If you're reading this
+  I'm terribly sorry for this code.
+  I had to perform some quick surgery in this ancient codebase
+-->
+
+<style>
+  #soon {
+    width: 700px;
+    margin: auto;
+    margin-top: 300px;
+  }
+
+  .down-letter {
+    display: inline-block;
+    line-height: 90px;
+    height: 90px;
+    font-size: 90px;
+    font-family: 'Josefin Sans', sans-serif;
+  }
+</style>
+<div id="soon"></div>
+<script>
+  var textArr = "COMING.SOON".split("");
+  var $target = $('#soon');
+
+  textArr.forEach(function(letter, i) {
+    setTimeout(function() {
+      animateLetter(letter);
+    }, 100*i)
+  })
+
+  function animateLetter(l) {
+    var $letter = $("<div class='down-letter animated fadeInDownBig'>" + l + "</div>")
+    $target.append($letter);
+  }
+</script>
