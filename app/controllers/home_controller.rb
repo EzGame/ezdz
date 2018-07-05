@@ -1,6 +1,4 @@
 class HomeController < ApplicationController
-  layout :_layout
-
   rescue_from ActiveRecord::RecordNotFound do |e|
     render text: "Doesn't exist", status: 404
   end
@@ -16,10 +14,5 @@ class HomeController < ApplicationController
   end
 
   def about
-  end
-
-  private
-  def _layout
-    false
   end
 end

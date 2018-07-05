@@ -23,11 +23,14 @@ module Ezdz
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
     # Auto load libraries on change
+
     config.autoload_paths += %W(#{config.root}/lib)
     config.autoload_paths += %W(#{config.root}/app/models/posts)
 
+    config.assets.precompile += %w( default.css print.css )
+
     # Serve static assets
-    config.serve_static_files = true
+    config.public_file_server.enabled = true
     config.action_dispatch.tld_length = 2
   end
 end
